@@ -30,6 +30,7 @@ header p{color:var(--mut);margin-top:3px;font-size:.75rem}
 .l4{background:#0a1a2d;color:#3b82f6;border:1px solid #1a3a5c}
 .l7{background:#1a0a2d;color:#a855f7;border:1px solid #3a1a5c}
 .lm{background:#1a1a2d;color:#818cf8;border:1px solid #3a3a5c}
+.ll{background:#1a1500;color:#f59e0b;border:1px solid #3d3500}
 .sh{margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--bor)}
 .sh h2{font-size:1rem;font-weight:700;color:var(--ac)}
 .sh p{color:var(--mut);font-size:.72rem;margin-top:2px}
@@ -2584,6 +2585,485 @@ const JOB_TASKS=[
 
 
 
+// ============================================================
+// LOWE TRACK — Doug Lowe "Networking All-in-One For Dummies"
+// (the 7-in-1 book). Full hub sections 41-56: notes, commands,
+// quiz, mind maps, chapter PDF in the Read tab, and cross-links
+// to/from the CCNA sections. Added via Object.assign / push so
+// the original data blocks above stay untouched.
+// ============================================================
+const LOWE_SEC={
+41:{title:"Welcome to Networking",layer:"Bk1",lc:"ll",lp:null,od:"",lowe:"Book 1 · Chapter 1",bc:"1.1",xref:[3,10,11],
+pts:["A network = two or more computers connected to share resources: files, printers, internet, applications",
+"Client consumes resources; server provides them. One machine can play both roles",
+"Peer-to-peer: every computer shares as an equal — cheap and fine for tiny offices, messy past ~10 users",
+"Client-server: dedicated servers + central management — this is how it scales, secures, and gets backed up properly",
+"LAN = one location (office/floor/building). WAN = multiple sites linked over distance. The Internet is the biggest WAN of all",
+"The big wins of networking: shared files, shared printers, shared internet access, email/messaging, centralized backup",
+"A server OS / NOS (Windows Server, Linux) adds central logins, permissions, and services on top of simple sharing",
+"Network admin reality: users, permissions, backups, updates, and endless variations of the-network-is-slow tickets — not just cables",
+"Bandwidth is shared: one user's giant transfer can starve everyone on a weak design",
+"Golden rule from day one: document everything — IPs, credentials (in a vault), diagrams, and every change you make"],
+cmds:[],lab:[]},
+
+42:{title:"Network Infrastructure",layer:"Bk1",lc:"ll",lp:null,od:"",lowe:"Book 1 · Chapter 2",bc:"1.2",xref:[10,11],
+pts:["Structured cabling path: wall jack → horizontal run → patch panel → patch cable → switch. Never point-to-point spaghetti",
+"UTP realities: Cat5e = 1G to 100 m, Cat6 = 10G only to ~55 m, Cat6a = 10G to 100 m. The 100 m channel budget includes patch cords",
+"MDF = main wiring room / core of the building; IDFs = per-floor closets uplinked back to the MDF (fiber preferred)",
+"Fiber choice: single-mode (laser, km-scale, campus/WAN links) vs multimode (shorter, in-building)",
+"Plenum-rated cable is required in air-handling spaces — that is fire code, not a suggestion",
+"PoE powers phones/APs/cameras over the data cable: 802.3af = 15.4 W, 802.3at (PoE+) = 30 W, 802.3bt = up to 90 W",
+"Rack discipline: patch panels and switches adjacent, cable management between, and label BOTH ends of everything",
+"Physical topology today is a star — everything homes to a switch. Logical topologies can differ from the physical one",
+"Test and certify runs (wire map, length, crosstalk) before blaming the switch or the NIC",
+"The firewall sits between your LAN and the internet edge; the router/modem hands off the ISP circuit"],
+cmds:[],lab:[]},
+
+43:{title:"Switches, Routers and VLANs",layer:"Bk1",lc:"ll",lp:null,od:"",lowe:"Book 1 · Chapter 3",bc:"1.3",xref:[9,11,22],
+pts:["Hubs repeat everything out every port (obsolete). Switches learn MAC addresses and forward only where needed",
+"Switch = many collision domains, one broadcast domain per VLAN. Router = the border between broadcast domains",
+"Unmanaged switch: plug-and-pray. Managed switch: VLANs, trunking, monitoring, and security via CLI or GUI",
+"A router connects different networks — most visibly your LAN to the internet — and picks paths by destination IP",
+"Default gateway = the router IP your hosts send all off-subnet traffic to",
+"VLAN = a logical LAN inside a switch: splits users into separate broadcast domains without buying separate hardware",
+"Typical office VLAN plan: users, voice, printers, guest, management — smaller blast radius, cleaner security",
+"A trunk (802.1Q tagging) carries multiple VLANs between switches over a single link",
+"Routing between VLANs needs a Layer-3 device: router-on-a-stick or an L3 switch with SVIs",
+"L3 switch = a switch that also routes — the standard core/distribution box in real buildings"],
+cmds:["show mac address-table","show vlan brief"],lab:[]},
+
+44:{title:"Cybersecurity Basics",layer:"Bk1",lc:"ll",lp:null,od:"",lowe:"Book 1 · Chapter 4",bc:"1.4",xref:[32,33],
+pts:["CIA triad: Confidentiality (only the right eyes), Integrity (unaltered data), Availability (up when needed)",
+"Malware zoo: virus (needs a host file), worm (self-spreads), trojan (pretends to be legit), ransomware (encrypts + extorts), spyware/keyloggers",
+"Phishing and social engineering beat firewalls by hacking humans — verify senders, links, and anything with urgency pressure",
+"Defense in depth: firewall + patching + endpoint protection + least privilege + backups + user training. No single silver bullet",
+"Least privilege: each account gets only what the job needs; keep admin accounts separate from daily-driver accounts",
+"Patching closes known holes — most breaches exploit vulnerabilities that already had fixes available",
+"MFA turns a stolen password into a non-event; enable it everywhere that matters",
+"Backups are the ransomware antidote — follow 3-2-1 (3 copies, 2 media, 1 offsite) and actually test restores",
+"Firewalls default-deny inbound; expose services deliberately, and preferably only through a VPN",
+"Physical security counts: a stranger in the wiring closet defeats every ACL you ever wrote"],
+cmds:[],lab:[]},
+
+45:{title:"Servers and Virtualization",layer:"Bk1",lc:"ll",lp:null,od:"",lowe:"Book 1 · Chapter 5",bc:"1.5",xref:[11],
+pts:["Common server roles: file/print, web, mail, database, DHCP/DNS, directory (Active Directory), backup",
+"Server hardware earns its price: ECC RAM, RAID, dual power supplies, remote management (iDRAC/iLO)",
+"RAID: 1 = mirror, 5 = stripe + parity (survives one disk), 10 = striped mirrors (fast + resilient). RAID is uptime, NOT backup",
+"Virtualization: a hypervisor runs many VMs on one physical box — better utilization, isolation, fast provisioning",
+"Type 1 hypervisor = bare metal (ESXi, Hyper-V, Proxmox/KVM). Type 2 = an app on a desktop OS (VirtualBox, Workstation)",
+"Each VM gets virtual CPU/RAM/disk/NIC; virtual switches connect VMs to each other and to the physical NICs",
+"Live migration (vMotion / Live Migration) moves a running VM between hosts with zero downtime",
+"Snapshots are point-in-time diffs that depend on the base disk — great before changes, useless as backups",
+"Containers (Docker) share the host kernel — lighter than VMs; you will meet them the moment automation shows up",
+"Why network engineers care: virtual switches, VLAN tags to hypervisor hosts, and NIC teaming are now your problem too"],
+cmds:[],lab:[]},
+
+46:{title:"Cloud Computing",layer:"Bk1",lc:"ll",lp:null,od:"",lowe:"Book 1 · Chapter 6",bc:"1.6",xref:[31],
+pts:["IaaS = rent VMs/networks/disks (EC2, Azure VMs). PaaS = rent a managed runtime (App Service, RDS). SaaS = rent finished software (M365, Gmail, Salesforce)",
+"Public cloud (AWS/Azure/GCP) vs private (your own virtualized DC) vs hybrid (both, connected together)",
+"Pay-as-you-go flips CapEx to OpEx — and turns forgotten VMs into a monthly bill",
+"Your CCNA transfers directly: a VPC/VNet is a routed network; subnets, route tables, and security groups are familiar ideas with new names",
+"Connect on-prem to cloud with site-to-site VPN or dedicated circuits (Direct Connect / ExpressRoute) — BGP shows up here",
+"Shared responsibility: the provider secures the cloud itself; you secure what you put in it (identities, configs, data)",
+"Regions and availability zones = provider-scale redundancy; design across them, not inside just one",
+"Storage tiers (hot / cool / archive) trade price for retrieval speed",
+"Egress traffic costs money — in the cloud, architecture decisions become billing decisions"],
+cmds:[],lab:[]},
+
+47:{title:"Network Protocols and Standards",layer:"Bk2",lc:"ll",lp:null,od:"",lowe:"Book 2 · Chapter 1",bc:"2.1",xref:[3,5,10],
+pts:["A protocol = the agreed rules two devices use to talk: message format, order, and error handling",
+"Protocol suites bundle the layers together — TCP/IP won; OSI survives as the vocabulary we describe everything with",
+"IEEE owns the LAN standards: 802.3 = Ethernet, 802.11 = Wi-Fi, 802.1Q = VLAN tagging, 802.1X = port authentication",
+"IETF publishes internet standards as RFCs (IP, TCP, HTTP, DNS...) — free to read and argue-tested in public",
+"Other bodies: ISO (OSI model), ANSI/TIA (cabling), ITU (telecom), W3C (web), IANA/ICANN (names and numbers)",
+"OSI 7 layers: Physical, Data Link, Network, Transport, Session, Presentation, Application",
+"TCP/IP model: Network Access, Internet, Transport, Application — the top three OSI layers collapse into one",
+"Standards are why a Dell laptop, a Cisco switch, and an Arista core all interoperate — buy standards, not lock-in, where you can",
+"De facto vs de jure: some standards win by adoption (Ethernet did) before or without any formal blessing"],
+cmds:[],lab:[]},
+
+48:{title:"TCP/IP and the Internet",layer:"Bk2",lc:"ll",lp:null,od:"",lowe:"Book 2 · Chapter 2",bc:"2.2",xref:[3,12],
+pts:["The Internet grew out of ARPANET (1969); TCP/IP became its mandatory language on Jan 1, 1983 — the famous flag day",
+"IP moves packets between networks (best effort); TCP adds reliability on top; UDP skips the overhead for speed",
+"The web is NOT the Internet: HTTP/HTTPS is one service riding on it, alongside email (SMTP), DNS, SSH, VoIP, and more",
+"Nobody owns the Internet: ISPs interconnect at exchange points (IXPs) and through peering/transit agreements",
+"ICANN/IANA coordinate the globally unique stuff: domain names, IP address allocation, protocol numbers",
+"Regional Internet Registries (ARIN for North America) hand public IP blocks to ISPs and organizations",
+"A packet's journey: LAN → your router → ISP access network → ISP core → peering/IXP → destination ISP → server",
+"Port numbers let one IP host many services: 80/443 web, 25/587 mail, 53 DNS, 22 SSH",
+"IPv4 exhaustion is why NAT is everywhere and why IPv6 adoption keeps growing"],
+cmds:[],lab:[]},
+
+49:{title:"IP Addresses",layer:"Bk2",lc:"ll",lp:null,od:"",lowe:"Book 2 · Chapter 3",bc:"2.3",xref:[7,8,29],
+pts:["IPv4 = 32 bits written as four octets in dotted decimal; each octet ranges 0-255",
+"The subnet mask splits an address into network part vs host part; same-network hosts talk directly, everything else goes via the gateway",
+"Classes (historic but still spoken): A 1-126 /8, B 128-191 /16, C 192-223 /24; D multicast, E experimental",
+"Private RFC 1918 space: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 — free to use inside, NAT to get out",
+"CIDR notation just counts mask bits: /24 = 255.255.255.0 = 254 usable hosts",
+"Reserved oddballs: 127.0.0.1 loopback, 169.254.x.x APIPA (means DHCP failed), all-0s host = the network, all-1s = broadcast",
+"Every host needs an IP + mask + default gateway, plus DNS servers to actually be useful",
+"Static assignment for infrastructure (servers, printers, network gear); DHCP for everything that walks in the door",
+"NAT lets a whole private office share one public IP — the router rewrites addresses on the way out",
+"IPv6 (128-bit, hex) exists because 4.3 billion IPv4 addresses were not enough"],
+cmds:["ipconfig /all","ip addr","ifconfig"],lab:[]},
+
+50:{title:"Routing",layer:"Bk2",lc:"ll",lp:null,od:"",lowe:"Book 2 · Chapter 4",bc:"2.4",xref:[6,16,17],
+pts:["A router reads each packet's destination IP, looks it up in the routing table, and forwards toward the best match",
+"Routing table sources: directly connected, static (you typed it), dynamic (a protocol learned it)",
+"Longest prefix wins: a /28 beats a /24 beats a /0 for the same destination",
+"Default route (0.0.0.0/0) = gateway of last resort — where everything else goes, usually toward the internet",
+"Static routing: simple, predictable, zero overhead — great for small/stub networks, painful at scale",
+"Dynamic protocols trade some chatter for self-healing: RIP (hop count, legacy), OSPF (link-state, the enterprise IGP), BGP (the internet's protocol)",
+"Distance vector = routers gossip their tables to neighbors; link-state = every router builds the full map and runs SPF",
+"Metrics differ per protocol (hops, cost/bandwidth); administrative distance decides between protocols when both know a route",
+"Every hop decrements TTL — which is exactly what traceroute exploits to map the path",
+"Routers are broadcast-domain borders: broadcasts stop at the router, and that is the whole point"],
+cmds:["show ip route","route print","netstat -rn"],lab:[]},
+
+51:{title:"DHCP",layer:"Bk2",lc:"ll",lp:null,od:"",lowe:"Book 2 · Chapter 5",bc:"2.5",xref:[23,27],
+pts:["DHCP hands out IP configuration automatically: address, mask, gateway, DNS servers, lease time",
+"DORA: Discover (client broadcast) → Offer (server) → Request (client) → Acknowledge (server)",
+"Scope = the pool of addresses for a subnet; exclusions carve out the statics; options carry gateway/DNS/etc.",
+"Reservation = the same IP every time for a given MAC — printers and APs love these",
+"Leases renew at 50% of lease time (T1) via unicast to the original server; rebind broadcast at 87.5% (T2)",
+"No DHCP answer → Windows self-assigns APIPA 169.254.x.x — the classic can-ping-neighbor-but-no-internet clue",
+"DHCP is broadcast-based, so you need a server per subnet OR a relay: ip helper-address forwards Discovers across the router",
+"Rogue DHCP servers hijack clients — which is exactly why switches offer DHCP snooping",
+"Windows Server DHCP and a Cisco IOS pool do the same job — GUI scopes vs ip dhcp pool commands"],
+cmds:["ipconfig /release","ipconfig /renew","show ip dhcp binding"],lab:[]},
+
+52:{title:"DNS",layer:"Bk2",lc:"ll",lp:null,od:"",lowe:"Book 2 · Chapter 6",bc:"2.6",xref:[5,23],
+pts:["DNS turns names into IPs (and back) — the internet's phone book, over port 53",
+"Hierarchy: root (.) → TLD (.com/.org/.nyc) → the domain's authoritative servers → the record you asked for",
+"Your resolver (recursive server) does the legwork; clients just ask it once and cache the answer",
+"Records that matter: A (IPv4), AAAA (IPv6), CNAME (alias), MX (mail), NS (delegation), PTR (reverse), TXT (SPF/verification), SOA (zone info)",
+"TTL controls caching — drop it low before a migration, put it back to sane afterwards",
+"Forward lookup = name to IP; reverse lookup = IP to name via in-addr.arpa PTR records",
+"The hosts file still overrides DNS locally — great for testing, classic cause of why-is-this-one-PC-weird",
+"Public resolvers for isolating problems: 8.8.8.8 (Google), 1.1.1.1 (Cloudflare), 9.9.9.9 (Quad9)",
+"In Active Directory environments DNS is load-bearing: domain machines find their domain controllers through it",
+"It's-always-DNS is a meme because half of the-internet-is-down tickets are really name resolution"],
+cmds:["nslookup example.com","dig example.com","ipconfig /flushdns","ipconfig /displaydns"],lab:[]},
+
+53:{title:"TCP/IP Tools and Commands",layer:"Bk2",lc:"ll",lp:null,od:"",lowe:"Book 2 · Chapter 7",bc:"2.7",xref:[13,18],
+pts:["ping = ICMP echo: proves reachability and round-trip time. Start every ticket with it",
+"tracert (Windows) / traceroute (everything else) maps the hop-by-hop path by expiring TTLs one at a time",
+"ipconfig /all (Windows) or ip addr / ifconfig (Linux/Mac) shows the host's IP, mask, gateway, DNS, MAC, and DHCP state",
+"nslookup / dig test name resolution directly, against any DNS server you choose",
+"arp -a shows the local IP-to-MAC cache — proof of who the host thinks the gateway is",
+"netstat -an lists live connections and listening ports; add -b (as admin) on Windows to see which program owns each",
+"route print / netstat -rn shows the host routing table — multihomed laptops lie here all the time",
+"pathping (Windows) = traceroute plus per-hop loss statistics gathered over time",
+"telnet host 443 (or Test-NetConnection) answers is-the-PORT-open — a different question than ping",
+"A clean troubleshooting ladder: ipconfig → ping the gateway → ping 8.8.8.8 → nslookup — each step isolates a layer"],
+cmds:["ping 8.8.8.8","tracert 8.8.8.8","traceroute 8.8.8.8","ipconfig /all","arp -a","netstat -an","nslookup example.com","route print","pathping 8.8.8.8","telnet mail.example.com 25"],lab:[]},
+
+54:{title:"Local Area Networks",layer:"Bk3",lc:"ll",lp:null,od:"",lowe:"Book 3 · Chapter 1",bc:"3.1",xref:[9,10,22,37],
+pts:["Plan before you buy: user count, applications, growth, floor plan, and where the wiring closets can physically live",
+"Modern LAN recipe: Cat6/6a star cabling → access switches in IDFs → uplinks to a core/MDF → router/firewall to the ISP",
+"Segment with VLANs from day one: users / voice / printers / guest / management",
+"Size switch ports for growth (about +20%) and buy PoE if phones, APs, or cameras are anywhere in the plan",
+"Uplinks and the core deserve fiber and redundancy; a daisy-chain of desktop switches is a future outage",
+"IP plan: pick a private block, one subnet per VLAN, DHCP for people, reservations/statics for infrastructure",
+"Wi-Fi is part of the LAN: APs sit on the wired network, get their own VLAN/SSID design, and are PoE-powered",
+"Guest network = internet-only and isolated from corporate — non-negotiable",
+"Label everything and keep a one-page diagram; future-you at 2 a.m. will be grateful"],
+cmds:[],lab:[]},
+
+55:{title:"Wide Area Networks",layer:"Bk3",lc:"ll",lp:null,od:"",lowe:"Book 3 · Chapter 2",bc:"3.2",xref:[31],
+pts:["A WAN links sites over distance using carrier services — you rent the middle",
+"Internet + VPN is the default WAN now: IPsec site-to-site tunnels between the firewalls/routers at each site",
+"Remote-access VPN brings individual users into the LAN from anywhere (client-based or SSL portal)",
+"Carrier menu: broadband (cable/fiber/DSL), Dedicated Internet Access with SLAs, Metro Ethernet between metro sites, MPLS for provider-managed any-to-any",
+"MPLS pros: SLAs and QoS across sites. Cons: cost and provisioning time — many shops migrate to SD-WAN over broadband",
+"SD-WAN: multiple cheap links (broadband + LTE/5G) with policy-based path selection and central control",
+"Last mile = the physical link into your building; it is the usual bottleneck and single point of failure — dual-carrier if uptime matters",
+"Bandwidth math: size for the peaks (backups, video), not the average",
+"Latency matters as much as bandwidth for real-time apps — distance and hops, not just Mbps"],
+cmds:[],lab:[]},
+
+56:{title:"Wireless Networks",layer:"Bk4",lc:"ll",lp:null,od:"",lowe:"Book 4 · Chapter 2",bc:"4.2",xref:[37],
+pts:["Wi-Fi generations: 802.11n = Wi-Fi 4, 802.11ac = Wi-Fi 5 (5 GHz), 802.11ax = Wi-Fi 6 / 6E (6E adds the 6 GHz band)",
+"2.4 GHz: longer range, only 3 clean channels (1/6/11), crowded. 5 GHz: faster, many channels, shorter range. 6 GHz: cleanest, newest gear only",
+"SSID = the network name; one AP can broadcast several (corp, guest, IoT) mapped to different VLANs",
+"Security ladder: WEP (broken) → WPA (broken) → WPA2 (aging) → WPA3 (use it). Never open, never WEP",
+"Home/small office = WPA2/3-Personal (pre-shared key); enterprise = WPA2/3-Enterprise (802.1X per-user auth via RADIUS)",
+"AP placement beats AP quantity: central, high, away from metal and microwaves; do a site survey for anything serious",
+"Neighboring APs on the same channel interfere — stagger channels and control transmit power",
+"Roaming: multiple APs share the same SSID so clients can move; controllers or cloud dashboards (Meraki, UniFi, Aruba) coordinate them",
+"Guest Wi-Fi: separate SSID + VLAN, client isolation, internet-only",
+"When Wi-Fi is slow: check channel overlap, client count per AP, and whether one legacy 2.4 GHz device is dragging everyone down"],
+cmds:["netsh wlan show interfaces","netsh wlan show networks"],lab:[]},
+};
+
+const LOWE_BOOKS=[
+{b:1,n:"Book 1 · Getting Started with Networking",secs:[41,42,43,44,45,46]},
+{b:2,n:"Book 2 · Network Protocols and TCP/IP",secs:[47,48,49,50,51,52,53]},
+{b:3,n:"Book 3 · LANs and WANs",secs:[54,55]},
+{b:4,n:"Book 4 · Wireless",secs:[56]},
+];
+const LOWE_SO=LOWE_BOOKS.reduce((a,b)=>a.concat(b.secs),[]);
+
+// Reverse map: CCNA section id → Lowe section ids (drives the
+// "Lowe background" chips inside the existing CCNA sections)
+const LOWE_REV={};
+LOWE_SO.forEach(k=>{(LOWE_SEC[k].xref||[]).forEach(x=>{(LOWE_REV[x]=LOWE_REV[x]||[]).push(k);});});
+
+// Each Lowe section gets its chapter PDF in the Read tab
+Object.assign(CHAP_FILES,{
+41:["lowe_bk1_ch1_welcome_to_networking.pdf"],
+42:["lowe_bk1_ch2_network_infrastructure.pdf"],
+43:["lowe_bk1_ch3_switches_routers_and_vlans.pdf"],
+44:["lowe_bk1_ch4_cybersecurity.pdf"],
+45:["lowe_bk1_ch5_servers_and_virtualization.pdf"],
+46:["lowe_bk1_ch6_cloud_computing.pdf"],
+47:["lowe_bk2_ch1_network_protocols_and_standards.pdf"],
+48:["lowe_bk2_ch2_tcp_ip_and_the_internet.pdf"],
+49:["lowe_bk2_ch3_ip_addresses.pdf"],
+50:["lowe_bk2_ch4_routing.pdf"],
+51:["lowe_bk2_ch5_dhcp.pdf"],
+52:["lowe_bk2_ch6_dns.pdf"],
+53:["lowe_bk2_ch7_tcp_ip_tools_and_commands.pdf"],
+54:["lowe_bk3_ch1_local_area_networks.pdf"],
+55:["lowe_bk3_ch2_wide_area_networks.pdf"],
+56:["lowe_bk4_ch2_wireless_networks.pdf"],
+});
+
+// Mind maps for the anchor Lowe chapters
+Object.assign(MIND,{
+47:{c:"Protocols & Standards",nodes:[
+{l:"Who makes them",ch:[{l:"IEEE — 802.x LANs"},{l:"IETF — RFCs"},{l:"ISO · ANSI/TIA"},{l:"ITU · W3C · ICANN"}]},
+{l:"IEEE 802",ch:[{l:"802.3 Ethernet"},{l:"802.11 Wi-Fi"},{l:"802.1Q VLANs"},{l:"802.1X Port Auth"}]},
+{l:"Models",ch:[{l:"OSI: 7 layers"},{l:"TCP/IP: 4 layers"},{l:"Top-3 OSI → App layer"}]},
+{l:"Why care",ch:[{l:"Interoperability"},{l:"Vendor freedom"},{l:"Shared vocabulary"}]}
+]},
+49:{c:"IP Addressing",nodes:[
+{l:"Anatomy",ch:[{l:"32-bit · 4 octets"},{l:"Network + Host parts"},{l:"Mask draws the line"},{l:"CIDR: /24"}]},
+{l:"Special ranges",ch:[{l:"RFC 1918 private"},{l:"127.0.0.1 loopback"},{l:"169.254 APIPA"},{l:"All-1s broadcast"}]},
+{l:"A host needs",ch:[{l:"IP + Mask"},{l:"Default gateway"},{l:"DNS servers"}]},
+{l:"Getting out",ch:[{l:"NAT at the edge"},{l:"One public IP, many hosts"}]}
+]},
+51:{c:"DHCP",nodes:[
+{l:"DORA",ch:[{l:"Discover (broadcast)"},{l:"Offer"},{l:"Request"},{l:"Acknowledge"}]},
+{l:"Server side",ch:[{l:"Scope / pool"},{l:"Exclusions"},{l:"Reservations (MAC)"},{l:"Options: GW, DNS"}]},
+{l:"Lease lifecycle",ch:[{l:"Lease time"},{l:"Renew @ 50% (T1)"},{l:"Rebind @ 87.5% (T2)"},{l:"APIPA on failure"}]},
+{l:"Across subnets",ch:[{l:"Relay agent"},{l:"ip helper-address"}]}
+]},
+52:{c:"DNS",nodes:[
+{l:"Hierarchy",ch:[{l:"Root ."},{l:"TLD .com"},{l:"Authoritative"},{l:"Resolver caches"}]},
+{l:"Records",ch:[{l:"A / AAAA"},{l:"CNAME alias"},{l:"MX mail"},{l:"PTR reverse"}]},
+{l:"Lookups",ch:[{l:"Recursive (resolver)"},{l:"Iterative (servers)"},{l:"TTL caching"}]},
+{l:"Tools",ch:[{l:"nslookup"},{l:"dig"},{l:"hosts file"},{l:"flushdns"}]}
+]},
+53:{c:"Host Toolkit",nodes:[
+{l:"Reachability",ch:[{l:"ping (ICMP)"},{l:"tracert — path"},{l:"pathping — loss"}]},
+{l:"Identity",ch:[{l:"ipconfig /all"},{l:"ip addr"},{l:"arp -a"}]},
+{l:"Names",ch:[{l:"nslookup"},{l:"dig @server"}]},
+{l:"Sockets & routes",ch:[{l:"netstat -an"},{l:"telnet host port"},{l:"route print"}]}
+]},
+56:{c:"Wi-Fi",nodes:[
+{l:"Standards",ch:[{l:"n = Wi-Fi 4"},{l:"ac = Wi-Fi 5"},{l:"ax = Wi-Fi 6 / 6E"}]},
+{l:"Spectrum",ch:[{l:"2.4 GHz: ch 1·6·11"},{l:"5 GHz: fast"},{l:"6 GHz: clean"}]},
+{l:"Security",ch:[{l:"WPA3 over WPA2"},{l:"PSK = personal"},{l:"802.1X = enterprise"}]},
+{l:"Design",ch:[{l:"Site survey"},{l:"Channel plan"},{l:"Guest isolation"}]}
+]},
+});
+
+// Quizzes — 4 questions per Lowe chapter, same engine as CCNA quizzes
+const LOWE_QUIZ=[
+{id:41,name:"Welcome to Networking",q:[
+{q:"What is the key difference between peer-to-peer and client-server networking?",o:["Peer-to-peer is faster","Client-server uses dedicated servers and central management","Peer-to-peer requires a domain controller","Client-server only works on WANs"],a:1,e:"Client-server networks use dedicated servers with centralized accounts, permissions, and backup. Peer-to-peer shares directly between equals — fine for tiny setups, unmanageable at scale."},
+{q:"Which is NOT a typical benefit of networking computers?",o:["Sharing files","Sharing printers","Increasing each PC's CPU speed","Sharing one internet connection"],a:2,e:"Networks share resources and enable communication — they don't make an individual computer's processor faster."},
+{q:"What primarily distinguishes a LAN from a WAN?",o:["The brand of equipment","Geographic scope — a LAN covers one site, a WAN links distant sites","LANs use TCP/IP, WANs do not","WANs are always wireless"],a:1,e:"LAN = one location (office/building). WAN = connections between geographically separated sites, usually over rented carrier services. Both run TCP/IP."},
+{q:"What does a server operating system (NOS) add over a desktop OS?",o:["Better gaming performance","Centralized logins, permissions, and network services","A faster web browser","Automatic Wi-Fi"],a:1,e:"Server OSes (Windows Server, Linux server roles) provide centralized authentication, shared services (file/print/DHCP/DNS/directory), and management at scale."},
+]},
+{id:42,name:"Network Infrastructure",q:[
+{q:"What is the purpose of a patch panel?",o:["To boost the signal on long runs","To terminate horizontal cabling so cross-connects to switches are flexible","To assign IP addresses","To filter malicious traffic"],a:1,e:"Horizontal runs from wall jacks terminate on the patch panel; short patch cables then connect ports to switches — so moves and changes never touch the in-wall cabling."},
+{q:"Which cable supports 10 Gbps at a full 100 meters?",o:["Cat5e","Cat6","Cat6a","Coax RG-6"],a:2,e:"Cat6a carries 10GBASE-T the full 100 m. Cat6 manages 10G only to roughly 55 m; Cat5e tops out at 1G for 100 m."},
+{q:"What is the relationship between the MDF and IDFs?",o:["They are backup copies of each other","MDF is the main distribution room; IDFs are per-floor closets uplinked to it","IDF is the internet demarcation frame","MDF is only used for phones"],a:1,e:"The MDF houses the core/edge equipment; each floor's IDF closet serves local drops and uplinks (ideally fiber) back to the MDF."},
+{q:"Modern wired Ethernet LANs are physically wired in which topology?",o:["Bus","Ring","Star","Full mesh"],a:2,e:"Everything homes back to a switch — a star. Bus and ring are legacy; mesh appears in the core/WAN and in wireless, not desktop cabling."},
+]},
+{id:43,name:"Switches, Routers and VLANs",q:[
+{q:"A switch decides where to forward a frame based on what?",o:["Destination IP address","Destination MAC address","The VLAN name","TTL value"],a:1,e:"Switches are Layer 2: they learn source MACs and forward frames by destination MAC. Destination IP is the router's job."},
+{q:"What is the main benefit of VLANs?",o:["They increase cable length limits","They split one switch into separate broadcast domains without separate hardware","They encrypt traffic","They replace the need for IP addressing"],a:1,e:"VLANs logically segment users (users/voice/guest/management) into isolated broadcast domains on shared hardware — better performance and security."},
+{q:"To route traffic between two VLANs you need:",o:["A crossover cable","A Layer 3 device — a router or L3 switch","A second DHCP server","A trunk port only"],a:1,e:"VLANs are separate networks. Inter-VLAN routing requires Layer 3: router-on-a-stick or SVIs on a Layer 3 switch. A trunk alone just carries the tagged traffic."},
+{q:"What distinguishes a managed switch from an unmanaged one?",o:["Managed switches are always faster","Managed switches support configuration: VLANs, trunking, monitoring, security","Unmanaged switches work only with hubs","Managed switches don't need power"],a:1,e:"Unmanaged = plug in and hope. Managed = CLI/GUI access for VLANs, port settings, monitoring, and security features — what business networks require."},
+]},
+{id:44,name:"Cybersecurity Basics",q:[
+{q:"The CIA triad stands for:",o:["Central Intelligence Agency","Confidentiality, Integrity, Availability","Control, Inspect, Audit","Certificates, Identity, Access"],a:1,e:"Confidentiality (only authorized eyes), Integrity (data unaltered), Availability (systems up when needed) — the three goals every control serves."},
+{q:"Which malware type spreads across networks on its own, with no user action?",o:["Virus","Worm","Trojan","Adware"],a:1,e:"Worms self-propagate. Viruses need a host file to be run; trojans need a user to be fooled into running them."},
+{q:"The single best defense against ransomware destroying your data is:",o:["A strong Wi-Fi password","Tested offline/offsite backups (3-2-1)","Hiding the SSID","Longer VLAN names"],a:1,e:"If encrypted data can be restored from independent, tested backups, ransomware loses its leverage. Prevention layers help — recovery is the safety net."},
+{q:"'Least privilege' means:",o:["Everyone gets admin so tickets go faster","Accounts get only the access their job requires","Only the CEO has passwords","Guests get full network access"],a:1,e:"Grant the minimum permissions needed for the role, and keep admin rights in separate accounts — it limits the blast radius when (not if) an account is compromised."},
+]},
+{id:45,name:"Servers and Virtualization",q:[
+{q:"A Type 1 hypervisor runs:",o:["Inside a web browser","Directly on the hardware (bare metal)","As an app on Windows 11","Only in the cloud"],a:1,e:"Type 1 (ESXi, Hyper-V, Proxmox/KVM) installs on bare metal — production standard. Type 2 (VirtualBox, Workstation) runs on top of a desktop OS — labs and testing."},
+{q:"Why is a VM snapshot NOT a backup?",o:["Snapshots are too large","It depends on the original base disk — lose that and the snapshot is useless","Snapshots only capture RAM","Backups are illegal on VMs"],a:1,e:"A snapshot is a delta tied to the base disk on the same storage. Real backups are independent copies stored elsewhere that restore without the original."},
+{q:"vMotion / Live Migration lets you:",o:["Clone a VM's MAC address","Move a running VM between physical hosts with no downtime","Convert a VM to a container","Upgrade RAM without buying it"],a:1,e:"Live migration moves an actively running VM to another host — enabling hardware maintenance and load balancing with zero user impact."},
+{q:"RAID 1 provides:",o:["Striping for speed only","Mirroring — an identical copy on a second disk","Parity across five disks minimum","Compression"],a:1,e:"RAID 1 mirrors data across two disks: one can fail with no data loss. RAID 5 = stripe+parity, RAID 10 = striped mirrors. None of them replace backups."},
+]},
+{id:46,name:"Cloud Computing",q:[
+{q:"Renting a virtual machine in AWS or Azure is an example of:",o:["SaaS","PaaS","IaaS","DaaS"],a:2,e:"Infrastructure as a Service: you rent compute/network/storage and manage the OS upward. PaaS = managed runtime; SaaS = finished software."},
+{q:"Microsoft 365 and Gmail are examples of:",o:["IaaS","PaaS","SaaS","Colocation"],a:2,e:"Software as a Service — you consume the finished application; the provider runs everything underneath."},
+{q:"A 'hybrid cloud' means:",o:["Two public cloud providers","On-premises infrastructure connected with public cloud","Cloud with both Windows and Linux","A cloud that also mines crypto"],a:1,e:"Hybrid = your own on-prem/private environment plus public cloud, connected (VPN or dedicated circuit) and managed together."},
+{q:"Under the shared responsibility model, the customer is always responsible for:",o:["The physical data center","The hypervisor hardware","Their own data, identities, and configuration","The provider's fiber backbone"],a:2,e:"The provider secures the cloud itself (facilities, hardware, hypervisor). You secure what you put IN it: accounts, permissions, configs, and data."},
+]},
+{id:47,name:"Network Protocols and Standards",q:[
+{q:"Which organization standardizes Ethernet (802.3) and Wi-Fi (802.11)?",o:["IETF","IEEE","ICANN","ITU"],a:1,e:"The IEEE 802 committee owns LAN standards: 802.3 Ethernet, 802.11 Wi-Fi, 802.1Q VLAN tagging, 802.1X port authentication."},
+{q:"Internet standards like TCP, IP, and HTTP are published as:",o:["ISO white papers","RFCs by the IETF","Patents","Vendor datasheets"],a:1,e:"The IETF publishes Requests for Comments (RFCs) — open, free documents that define internet protocols."},
+{q:"What is a protocol?",o:["A brand of cable","An agreed set of rules for how devices communicate","A type of switch","A password policy"],a:1,e:"A protocol defines message format, ordering, and error handling so two independent implementations can interoperate."},
+{q:"How do the OSI and TCP/IP models compare?",o:["Both have 7 layers","TCP/IP merges OSI's top three layers into one Application layer","OSI is newer than TCP/IP","TCP/IP has no transport layer"],a:1,e:"OSI = 7 layers (the vocabulary we use); TCP/IP = 4 layers, collapsing Session/Presentation/Application into a single Application layer."},
+]},
+{id:48,name:"TCP/IP and the Internet",q:[
+{q:"The Internet evolved directly from which network?",o:["CompuServe","ARPANET","AOL","Ethernet"],a:1,e:"ARPANET (1969) pioneered packet switching; TCP/IP became mandatory on it on January 1, 1983 — effectively the Internet's birthday."},
+{q:"What is the relationship between the web and the Internet?",o:["They are the same thing","The web (HTTP/HTTPS) is one service that runs over the Internet","The Internet runs on top of the web","The web replaced the Internet in 2005"],a:1,e:"The Internet is the global network; the World Wide Web is one application on it, alongside email, DNS, SSH, streaming, VoIP, and more."},
+{q:"ICANN and IANA are responsible for:",o:["Selling routers","Coordinating domain names, IP allocation, and protocol numbers","Policing content","Running all DNS servers"],a:1,e:"They coordinate the globally unique identifiers — namespaces and number spaces — that keep the Internet coherent. RIRs like ARIN allocate IP blocks regionally."},
+{q:"ISPs exchange traffic with each other at:",o:["Patch panels","Internet Exchange Points (IXPs) and private peering","DNS root servers","DHCP servers"],a:1,e:"No one owns the Internet: providers interconnect through peering and transit at exchange points — NYC's carrier hotels (60 Hudson St, 111 8th Ave) are famous ones."},
+]},
+{id:49,name:"IP Addresses",q:[
+{q:"192.168.1.50 is what kind of address?",o:["Public","Private (RFC 1918)","Multicast","APIPA"],a:1,e:"192.168.0.0/16 is private space, along with 10.0.0.0/8 and 172.16.0.0/12 — used internally and NATed to reach the internet."},
+{q:"What does the subnet mask actually do?",o:["Encrypts the address","Marks which bits are network vs host","Sets the connection speed","Hides the PC from hackers"],a:1,e:"The mask's 1-bits are the network portion, 0-bits are hosts. It tells a device whether a destination is local (direct) or remote (send to gateway)."},
+{q:"A PC shows 169.254.23.7. What does that mean?",o:["It has a static public IP","DHCP failed and it self-assigned an APIPA address","It's on a VPN","The subnet is full"],a:1,e:"169.254.x.x = APIPA: the host broadcast for DHCP, got no answer, and self-assigned. Classic symptom: can see local peers, no internet."},
+{q:"How many usable host addresses are in a /24?",o:["256","255","254","128"],a:2,e:"/24 = 256 total addresses, minus the network address and broadcast = 254 usable hosts."},
+]},
+{id:50,name:"Routing",q:[
+{q:"A router forwards a packet based on:",o:["Source MAC","Destination IP looked up in the routing table","The VLAN tag only","Alphabetical hostname order"],a:1,e:"Routers match the destination IP against the routing table (longest prefix wins) and forward toward the next hop or exit interface."},
+{q:"The default route 0.0.0.0/0 is used when:",o:["The packet is a broadcast","No more specific route matches the destination","TTL reaches zero","The interface is down"],a:1,e:"It's the gateway of last resort — the catch-all for anything without a better match, typically pointing toward the internet edge."},
+{q:"Which pairing is correct?",o:["RIP = link-state, OSPF = distance vector","RIP = distance vector (hops), OSPF = link-state (cost)","BGP = interior-only protocol","OSPF = the internet's inter-ISP protocol"],a:1,e:"RIP gossips tables by hop count (legacy). OSPF builds a full topology map and runs SPF on cost. BGP is the exterior protocol gluing the internet's ISPs together."},
+{q:"Routers stop which kind of traffic by default?",o:["Unicast","Broadcasts — routers are broadcast-domain boundaries","All TCP","Encrypted traffic"],a:1,e:"Broadcasts stay inside their subnet/VLAN. Routers bound broadcast domains — a core reason to segment networks with them."},
+]},
+{id:51,name:"DHCP",q:[
+{q:"Put the DHCP handshake in order:",o:["Offer, Discover, Ack, Request","Discover, Offer, Request, Acknowledge","Request, Reply, Renew, Release","Hello, Offer, Bind, Ack"],a:1,e:"DORA: the client broadcasts a Discover, servers Offer, the client Requests one offer, the server Acknowledges."},
+{q:"A DHCP reservation does what?",o:["Blocks a device from the network","Always gives a specific MAC the same IP address","Doubles the lease time","Reserves bandwidth"],a:1,e:"Reservations bind an IP to a MAC — the predictability of static addressing with the manageability of DHCP. Perfect for printers and APs."},
+{q:"Why might a router need 'ip helper-address'?",o:["To speed up routing","DHCP Discovers are broadcasts, which routers don't forward — the helper relays them to a remote DHCP server","To translate private IPs","To block rogue DHCP"],a:1,e:"With one central DHCP server serving many subnets, the router relays client broadcasts as unicasts to the server (DHCP relay)."},
+{q:"By default, when does a client first try to renew its lease?",o:["At 100% expiry","At 50% of the lease (T1)","Every 10 minutes","Only at reboot"],a:1,e:"At T1 (50%) the client unicasts a renewal to the original server; at T2 (87.5%) it broadcasts to rebind with any server."},
+]},
+{id:52,name:"DNS",q:[
+{q:"Which record type maps a name to an IPv4 address?",o:["MX","CNAME","A","PTR"],a:2,e:"A = IPv4, AAAA = IPv6, CNAME = alias, MX = mail server, PTR = reverse (IP to name), NS = delegation, TXT = verification/SPF."},
+{q:"What does a recursive resolver do?",o:["Only answers for its own zone","Walks the hierarchy (root → TLD → authoritative) on the client's behalf and caches the answer","Blocks malicious sites by default","Assigns IP addresses"],a:1,e:"Clients ask their resolver once; the resolver chases the answer through the DNS hierarchy, caches it per TTL, and replies."},
+{q:"A user can reach 142.250.65.78 but not google.com. The problem layer is most likely:",o:["Physical cabling","Routing","DNS name resolution","The power supply"],a:2,e:"IP works, name doesn't — classic DNS. Check configured DNS servers (ipconfig /all), test with nslookup, try a public resolver like 8.8.8.8, flush the cache, check the hosts file."},
+{q:"What does a record's TTL control?",o:["How many routers it can cross","How long resolvers may cache the answer","Password expiry","The zone's size limit"],a:1,e:"TTL is the cache lifetime. Lower it before migrations so changes propagate fast; restore a sane value afterwards."},
+]},
+{id:53,name:"TCP/IP Tools and Commands",q:[
+{q:"traceroute/tracert discovers the path to a destination by:",o:["Reading the router's config","Sending probes with increasing TTLs and collecting the Time-Exceeded replies","Querying DNS for each hop","Broadcasting to all routers"],a:1,e:"TTL=1 dies at hop 1, TTL=2 at hop 2, and so on — each expiry generates an ICMP Time Exceeded that reveals that hop's address."},
+{q:"Which command shows a Windows host's IP, mask, gateway, DNS, and DHCP lease?",o:["netstat -an","ipconfig /all","arp -a","tracert"],a:1,e:"ipconfig /all is the first look at any Windows connectivity ticket. Linux/Mac: ip addr (plus ip route and resolv.conf/scutil for the rest)."},
+{q:"netstat -an is used to see:",o:["Wireless signal strength","Active connections and listening ports","The DNS cache","Cable faults"],a:1,e:"netstat lists sockets: what's connected and what's listening. Add -b (admin) on Windows to see the owning program; -rn shows the routing table."},
+{q:"'ping 8.8.8.8 works but ping google.com fails' proves what?",o:["The NIC is broken","IP connectivity is fine; DNS resolution is failing","The gateway is down","The firewall blocks all traffic"],a:1,e:"Reaching an IP but not a name isolates the failure to name resolution — jump straight to nslookup and the DNS settings."},
+]},
+{id:54,name:"Local Area Networks",q:[
+{q:"What is the FIRST step when planning a new office LAN?",o:["Buy the biggest switch available","Gather requirements: users, apps, growth, floor plan","Pick the Wi-Fi password","Order fiber to every desk"],a:1,e:"Needs assessment drives every later choice — port counts, PoE, closet locations, VLAN and IP design. Buying gear first is how closets fill with regret."},
+{q:"Why do guest devices belong on their own VLAN/SSID?",o:["Guests need faster speeds","To isolate them: internet-only access, no path to corporate resources","VLANs are required by ISPs","It reduces the electric bill"],a:1,e:"Guest segmentation is a security baseline: separate broadcast domain, firewall policy allowing internet only, client isolation on."},
+{q:"Horizontal cable runs from the wall jacks terminate:",o:["Directly in the router","On a patch panel in the IDF/wiring closet","At the ISP demarc","In the UPS"],a:1,e:"Wall jack → horizontal run → patch panel → patch cable → access switch. Structured cabling keeps moves/adds/changes off the in-wall wiring."},
+{q:"Why buy PoE switches for a new office build?",o:["They route faster","Phones, APs, and cameras get power over the data cable — no outlets at each device","PoE encrypts frames","They eliminate the need for a firewall"],a:1,e:"Power over Ethernet (af/at/bt) powers endpoints through the same Cat6 drop — cleaner installs and centralized UPS backup."},
+]},
+{id:55,name:"Wide Area Networks",q:[
+{q:"A site-to-site VPN does what?",o:["Speeds up the ISP link","Creates an encrypted tunnel over the internet joining two sites' LANs","Replaces DNS","Provides guest Wi-Fi"],a:1,e:"IPsec tunnels between each site's firewall/router make remote LANs reachable as if directly connected — today's default WAN."},
+{q:"Compared with internet VPN, MPLS mainly offers:",o:["Lower cost","Provider-managed connectivity with SLAs and end-to-end QoS","Unlimited bandwidth","No configuration at all"],a:1,e:"MPLS is a private, provider-run WAN with performance guarantees — at premium cost and slow provisioning, which is why SD-WAN over broadband keeps eating its lunch."},
+{q:"SD-WAN's core idea is:",o:["Using only satellite links","Steering traffic across multiple transports (broadband, LTE/5G, MPLS) by policy, with central control","Removing all routers","Encrypting nothing"],a:1,e:"SD-WAN bonds cheap diverse links, picks paths per application and health, and manages everything from one controller/dashboard."},
+{q:"'Last mile' refers to:",o:["The final hop inside a data center","The carrier's physical link into your building","The core backbone","A DNS timeout"],a:1,e:"It's the access circuit from the provider to your premises — the usual bottleneck and single point of failure. Dual carriers with diverse paths if uptime matters."},
+]},
+{id:56,name:"Wireless Networks",q:[
+{q:"Which 2.4 GHz channels don't overlap?",o:["1, 2, 3","1, 6, 11","2, 7, 12","5, 10, 15"],a:1,e:"Only 1, 6, and 11 are non-overlapping in 2.4 GHz — which is why neighboring APs should be staggered across exactly those."},
+{q:"Wi-Fi 6 corresponds to which IEEE standard?",o:["802.11ac","802.11n","802.11ax","802.3af"],a:2,e:"802.11ax = Wi-Fi 6 (and 6E on the 6 GHz band). 802.11ac = Wi-Fi 5, 802.11n = Wi-Fi 4. 802.3af is PoE — a wired standard."},
+{q:"The strongest currently recommended Wi-Fi security is:",o:["WEP","WPA","WPA2-TKIP","WPA3"],a:3,e:"WPA3 where supported; WPA2-AES as the fallback floor. WEP and original WPA are broken — never deploy them."},
+{q:"WPA2/3-Enterprise differs from Personal mode by:",o:["Using a longer shared password","Authenticating each user individually via 802.1X and a RADIUS server","Working only at 6 GHz","Disabling encryption"],a:1,e:"Personal = one pre-shared key for everyone. Enterprise = per-user credentials/certificates through 802.1X + RADIUS — revoke one user without rekeying the building."},
+]},
+];
+
+// A few IT/helpdesk-angle interview questions for the Lowe sections
+Object.assign(INTV_ADD,{
+44:[{q:"A user says they clicked a link in a suspicious email and typed their password. What do you do?",a:"Treat it as a live incident: reset the password immediately (plus anywhere it was reused), revoke active sessions, check MFA status and recent sign-in logs, scan the endpoint, preserve the email, and escalate per policy. Then make it a teachable moment, not a blame session."},
+{q:"Explain defense in depth in plain language.",a:"Assume any single control will fail. Firewall at the edge, patched systems, endpoint protection, least-privilege accounts, MFA, tested backups, and trained users all stack — so when one layer misses, the next one catches it."}],
+45:[{q:"What's the difference between a Type 1 and Type 2 hypervisor?",a:"Type 1 runs directly on hardware (ESXi, Hyper-V, Proxmox/KVM) — that's production. Type 2 runs as an application on a desktop OS (VirtualBox, VMware Workstation) — labs and testing. Type 1 wins on performance and reliability because there's no host OS in the path."},
+{q:"Why isn't a VM snapshot a backup?",a:"A snapshot is a delta file that depends on the base disk on the same storage — lose or corrupt the base and the snapshot dies with it, and long-lived snapshots hurt performance. A backup is an independent copy stored elsewhere (3-2-1) that restores without the original."}],
+46:[{q:"Explain IaaS vs PaaS vs SaaS with one example each.",a:"IaaS: rent infrastructure and manage the OS upward — an EC2/Azure VM. PaaS: rent a managed platform and bring only code/data — Azure App Service or RDS. SaaS: rent the finished application — Microsoft 365 or Salesforce. Each step up trades control for less management."},
+{q:"How does CCNA knowledge apply in the cloud?",a:"Directly. A VPC/VNet is a routed network with subnets, route tables, and ACL-like security groups; hybrid connectivity is IPsec VPN or a dedicated circuit, usually with BGP; and troubleshooting is still check-the-route, check-the-filter, check-DNS — just in a console instead of a CLI."}],
+52:[{q:"Walk me through the DNS part of typing a URL and pressing Enter.",a:"The OS checks its cache and hosts file. If empty, it asks its configured resolver. The resolver checks its own cache, then walks the hierarchy: root servers point to the TLD servers, which point to the domain's authoritative servers, which return the A/AAAA record. The resolver caches it per TTL and hands back the IP — only then do TCP, TLS, and HTTP begin."},
+{q:"A user reaches sites by IP but not by name. What do you check?",a:"That isolates DNS. Check the client's configured DNS servers (ipconfig /all), test with nslookup against them and then against a public resolver like 8.8.8.8, flush the local cache, inspect the hosts file, and confirm the DNS server is reachable on port 53 and healthy."}],
+});
+
+// Merge the Lowe track into the live data structures
+Object.assign(SEC,LOWE_SEC);
+S.push(...LOWE_QUIZ);
+
+// ============================================================
+// MULTI-VENDOR COMMAND TRANSLATOR — Cisco IOS as the anchor,
+// with Arista EOS, Juniper Junos, FortiGate FortiOS, and Aruba
+// AOS-CX equivalents. Vendor-agnostic thinking: same job,
+// different dialect.
+// ============================================================
+const XV_VENDORS=[
+{id:"arista",n:"Arista EOS",note:"EOS is deliberately ~95% IOS-like — the easiest jump from CCNA. It runs on Linux: type bash and you get a real shell (tcpdump included)."},
+{id:"junos",n:"Juniper Junos",note:"Junos edits a candidate config: nothing applies until you type commit. Hierarchical set/delete syntax, rollback 1 to undo, commit confirmed as a safety net."},
+{id:"forti",n:"FortiGate FortiOS",note:"FortiOS is a firewall-first, tree-based CLI: config → edit → set → next/end (saves as you exit). Traffic flows only where a firewall policy allows it. Many teams drive it from the GUI and use the CLI for diagnostics."},
+{id:"aruba",n:"Aruba AOS-CX",note:"AOS-CX feels IOS-like with modern touches (checkpoints, REST API). Big in campus/branch switching alongside Aruba Wi-Fi."},
+];
+const XVEND=[
+{cat:"Config & Survival Basics",rows:[
+{t:"Enter configuration mode",cisco:"configure terminal",arista:"configure",junos:"configure\n(opens a candidate config)",forti:"config system global\n(config trees per feature — no single global mode)",aruba:"configure terminal"},
+{t:"Save the configuration",cisco:"copy running-config startup-config\n(or: write memory)",arista:"write\n(or: copy running-config startup-config)",junos:"commit\n(nothing applies until you commit)",forti:"end\n(FortiOS saves as you exit each config tree)",aruba:"write memory"},
+{t:"Safety net before a risky change",cisco:"reload in 10\n(cancel with: reload cancel)",arista:"configure session CHG1\n...changes...\ncommit timer 00:10:00",junos:"commit confirmed 10\n(auto-rollback in 10 min unless committed again)",forti:"execute backup config flash PRECHANGE",aruba:"checkpoint copy running-config PRECHANGE"},
+{t:"Show the running config",cisco:"show running-config",arista:"show running-config",junos:"show configuration\n(or: show configuration | display set)",forti:"show full-configuration",aruba:"show running-config"},
+{t:"Undo a setting",cisco:"no ip address 10.1.1.1 255.255.255.0",arista:"no ip address 10.1.1.1/24",junos:"delete interfaces ge-0/0/0 unit 0 family inet\n(or roll everything back: rollback 1, then commit)",forti:"unset ip\n(inside the edit node)",aruba:"no ip address 10.1.1.1/24"},
+{t:"Software version / hardware info",cisco:"show version",arista:"show version",junos:"show version",forti:"get system status",aruba:"show version"},
+{t:"Set the hostname",cisco:"hostname CORE1",arista:"hostname CORE1",junos:"set system host-name CORE1",forti:"config system global\n set hostname CORE1\nend",aruba:"hostname CORE1"},
+]},
+{cat:"Interfaces & IP",rows:[
+{t:"Interface summary (state + IPs)",cisco:"show ip interface brief",arista:"show ip interface brief",junos:"show interfaces terse",forti:"get system interface physical",aruba:"show interface brief"},
+{t:"Give an interface an IP",cisco:"interface g0/0\n ip address 10.1.1.1 255.255.255.0\n no shutdown",arista:"interface Ethernet1\n no switchport\n ip address 10.1.1.1/24",junos:"set interfaces ge-0/0/0 unit 0 family inet address 10.1.1.1/24",forti:"config system interface\n edit port1\n  set ip 10.1.1.1 255.255.255.0\n  set allowaccess ping ssh https\nend",aruba:"interface 1/1/1\n routing\n ip address 10.1.1.1/24\n no shutdown"},
+{t:"Disable / enable a port",cisco:"shutdown\nno shutdown",arista:"shutdown\nno shutdown",junos:"set interfaces ge-0/0/0 disable\ndelete interfaces ge-0/0/0 disable",forti:"set status down\nset status up\n(inside: config system interface, edit port1)",aruba:"shutdown\nno shutdown"},
+{t:"Interface errors & counters",cisco:"show interfaces g0/0",arista:"show interfaces Ethernet1",junos:"show interfaces ge-0/0/0 extensive",forti:"diagnose hardware deviceinfo nic port1",aruba:"show interface 1/1/1"},
+{t:"See connected neighbors",cisco:"show cdp neighbors\nshow lldp neighbors",arista:"show lldp neighbors",junos:"show lldp neighbors",forti:"— firewall, not a switch: check the LLDP/CDP\ntable on the switch it plugs into",aruba:"show lldp neighbor-info"},
+]},
+{cat:"VLANs & Switching",rows:[
+{t:"Create VLAN 10 named USERS",cisco:"vlan 10\n name USERS",arista:"vlan 10\n name USERS",junos:"set vlans USERS vlan-id 10",forti:"config system interface\n edit VLAN10\n  set interface port1\n  set vlanid 10\nend\n(a VLAN = a tagged subinterface on FortiOS)",aruba:"vlan 10\n name USERS"},
+{t:"Access port in VLAN 10",cisco:"interface g0/1\n switchport mode access\n switchport access vlan 10",arista:"interface Ethernet2\n switchport mode access\n switchport access vlan 10",junos:"set interfaces ge-0/0/1 unit 0 family ethernet-switching interface-mode access vlan members USERS",forti:"— FortiGate ports are routed by default;\nswitching lives on FortiSwitch via FortiLink",aruba:"interface 1/1/2\n vlan access 10"},
+{t:"802.1Q trunk carrying VLANs 10 & 20",cisco:"interface g0/2\n switchport mode trunk\n switchport trunk allowed vlan 10,20",arista:"interface Ethernet3\n switchport mode trunk\n switchport trunk allowed vlan 10,20",junos:"set interfaces ge-0/0/2 unit 0 family ethernet-switching interface-mode trunk vlan members [ USERS SERVERS ]",forti:"tag both VLAN subinterfaces onto one physical port\n(edit VLAN10 and VLAN20, both: set interface port1)",aruba:"interface 1/1/3\n vlan trunk allowed 10,20"},
+{t:"Show VLANs",cisco:"show vlan brief",arista:"show vlan",junos:"show vlans",forti:"get system interface\n(look for the vlanid entries)",aruba:"show vlan"},
+{t:"MAC address table",cisco:"show mac address-table",arista:"show mac address-table",junos:"show ethernet-switching table",forti:"— see the switch's table; on-box the closest is:\nget system arp",aruba:"show mac-address-table"},
+{t:"ARP table",cisco:"show ip arp",arista:"show ip arp",junos:"show arp",forti:"get system arp",aruba:"show arp"},
+{t:"Spanning-tree status",cisco:"show spanning-tree",arista:"show spanning-tree",junos:"show spanning-tree bridge\nshow spanning-tree interface",forti:"— STP is your switches' job; FortiLink-managed\nFortiSwitch: diagnose switch-controller commands",aruba:"show spanning-tree"},
+]},
+{cat:"Routing",rows:[
+{t:"Default route via 203.0.113.1",cisco:"ip route 0.0.0.0 0.0.0.0 203.0.113.1",arista:"ip route 0.0.0.0/0 203.0.113.1",junos:"set routing-options static route 0.0.0.0/0 next-hop 203.0.113.1",forti:"config router static\n edit 1\n  set gateway 203.0.113.1\n  set device wan1\nend",aruba:"ip route 0.0.0.0/0 203.0.113.1"},
+{t:"Show the routing table",cisco:"show ip route",arista:"show ip route",junos:"show route",forti:"get router info routing-table all",aruba:"show ip route"},
+{t:"Enable OSPF area 0 on 10.1.1.0/24",cisco:"router ospf 1\n network 10.1.1.0 0.0.0.255 area 0",arista:"router ospf 1\n network 10.1.1.0/24 area 0",junos:"set protocols ospf area 0.0.0.0 interface ge-0/0/0.0",forti:"config router ospf\n set router-id 1.1.1.1\n config area\n  edit 0.0.0.0\n next\n end\n config network\n  edit 1\n   set prefix 10.1.1.0 255.255.255.0\n   set area 0.0.0.0\nend",aruba:"router ospf 1\n area 0\ninterface 1/1/1\n ip ospf 1 area 0"},
+{t:"OSPF neighbors",cisco:"show ip ospf neighbor",arista:"show ip ospf neighbor",junos:"show ospf neighbor",forti:"get router info ospf neighbor",aruba:"show ip ospf neighbor"},
+]},
+{cat:"Security & Troubleshooting",rows:[
+{t:"Block one host with a filter/ACL",cisco:"ip access-list extended BLOCK\n deny ip host 10.9.9.9 any\n permit ip any any\ninterface g0/0\n ip access-group BLOCK in",arista:"ip access-list BLOCK\n deny ip host 10.9.9.9 any\n permit ip any any\ninterface Ethernet1\n ip access-group BLOCK in",junos:"set firewall family inet filter BLOCK term BAD from source-address 10.9.9.9/32\nset firewall family inet filter BLOCK term BAD then discard\nset firewall family inet filter BLOCK term OK then accept\nset interfaces ge-0/0/0 unit 0 family inet filter input BLOCK",forti:"config firewall policy\n edit 0\n  set srcintf lan\n  set dstintf wan1\n  set srcaddr BAD_HOST\n  set dstaddr all\n  set service ALL\n  set action deny\nend\n(FortiGate is default-deny between interfaces)",aruba:"access-list ip BLOCK\n deny ip 10.9.9.9 any\n permit any any any\ninterface 1/1/1\n apply access-list ip BLOCK in"},
+{t:"Enable SSH admin access",cisco:"ip domain-name lab.local\ncrypto key generate rsa modulus 2048\nusername admin secret Str0ngPass\nline vty 0 4\n login local\n transport input ssh",arista:"username admin secret Str0ngPass\nmanagement ssh\n(SSH is on by default in EOS)",junos:"set system services ssh\nset system login user admin class super-user authentication plain-text-password",forti:"config system interface\n edit port1\n  set allowaccess ssh https ping\nend\n(admins: config system admin)",aruba:"user admin group administrators password plaintext Str0ngPass\nssh server vrf default"},
+{t:"Ping / traceroute from the box",cisco:"ping 8.8.8.8\ntraceroute 8.8.8.8",arista:"ping 8.8.8.8\ntraceroute 8.8.8.8",junos:"ping 8.8.8.8\ntraceroute 8.8.8.8",forti:"execute ping 8.8.8.8\nexecute traceroute 8.8.8.8",aruba:"ping 8.8.8.8\ntraceroute 8.8.8.8"},
+{t:"Capture packets on-box",cisco:"monitor capture CAP interface g0/0 both\nmonitor capture CAP start\nmonitor capture CAP stop",arista:"bash tcpdump -i et1\n(EOS is Linux underneath)",junos:"monitor traffic interface ge-0/0/0",forti:"diagnose sniffer packet any 'host 8.8.8.8' 4",aruba:"— mirror the port (SPAN) to a capture PC:\nmirror session 1 destination interface 1/1/48"},
+{t:"View logs",cisco:"show logging",arista:"show logging",junos:"show log messages",forti:"execute log filter category traffic\nexecute log display",aruba:"show logging"},
+]},
+];
+const XV_ROWS=XVEND.reduce((s,c)=>s+c.rows.length,0);
+
+// Where each vendor actually shows up — NYC-flavored
+const XV_LANDSCAPE=[
+{v:"Cisco (IOS-XE · NX-OS · Meraki)",w:"The default everywhere: enterprise campus, healthcare, finance back-offices, MSPs. NX-OS in data centers, Meraki in cloud-managed offices. Most NYC job posts still say Cisco first — your CCNA is the anchor."},
+{v:"Arista EOS",w:"Data centers and finance — exchanges, hedge funds, HFT, fintech — which makes it huge in NYC. If a posting says low-latency or leaf-spine, expect Arista. The CLI is intentionally IOS-like, so you already mostly know it."},
+{v:"Juniper Junos",w:"Service providers, ISPs, universities, government, large enterprise cores. NYC carrier hotels (60 Hudson St, 111 8th Ave, 32 AoA) are Junos country. Different config philosophy — commit-based — worth 2-3 lab evenings."},
+{v:"Fortinet FortiGate",w:"Firewalls and SD-WAN for small-to-mid market, retail chains, MSPs, K-12. The most common we-need-a-firewall-person skill ask in NYC/NJ mid-size shops. Free official training makes it an easy resume add."},
+{v:"Palo Alto PAN-OS",w:"The premium NGFW in enterprise and finance security teams — usually running on top of a Cisco/Arista network. Mostly GUI-driven; concepts (zones, policies, NAT) transfer from FortiGate."},
+{v:"Aruba (HPE) · Meraki · Ubiquiti",w:"Campus switching + Wi-Fi: schools, offices, co-working, hospitality across the five boroughs. Cloud dashboards more than CLIs — your VLAN/subnet/802.1X knowledge is what actually matters."},
+];
+// Free, legit ways to lab each vendor
+const XV_LABS=[
+{n:"Juniper vLabs — free hosted Junos labs in the browser",u:"https://jlabs.juniper.net/vlabs/"},
+{n:"Fortinet Training Institute — free self-paced FCF/FortiGate courses",u:"https://training.fortinet.com"},
+{n:"Arista software downloads — free cEOS/vEOS lab images (free account)",u:"https://www.arista.com/en/support/software-download"},
+{n:"Containerlab — spin up multi-vendor topologies in Docker (cEOS, vJunos, more)",u:"https://containerlab.dev"},
+{n:"GNS3 — classic multi-vendor network emulator",u:"https://gns3.com"},
+{n:"EVE-NG — community edition emulator, runs vendor VM images",u:"https://www.eve-ng.net"},
+{n:"Cisco DevNet Sandbox — free reservable real Cisco gear",u:"https://developer.cisco.com/site/sandbox/"},
+{n:"Palo Alto Beacon — free PAN-OS learning portal",u:"https://beacon.paloaltonetworks.com"},
+];
+let xvVendor='arista',xvSrch='';
+function setXV(v){xvVendor=v;render();}
+function fXV(v){xvSrch=v;render();}
+
+
 let view='menu',cur=null,gSrch='',secTab='study',qAns={},qSub=false,curChap=null,jobRegion=0,itfTab='sysadmin';
 const SO=[3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,22,23,24,25,26,27,28,29,30,31,32,33,34,35,37];
 
@@ -2597,8 +3077,8 @@ else if(view==='simlets')renderSimlets(a);else if(view==='jobs')renderJobs(a);}
 function renderMenu(a){
 let tQ=0;S.forEach(s=>tQ+=s.q.length);
 let h=`<header><h1>CCNA 200-301 Complete Study Hub</h1>
-<p>Study · Quiz · Labs · Book · Mind Maps · Interview · Projects · Exam Blueprint</p>
-<p style="color:var(--ac2);font-size:.68rem;margin-top:2px">${SO.length} sections · ${G.length} vocab · ${tQ} quiz questions</p></header>`;
+<p>Study · Quiz · Labs · Book · Mind Maps · Interview · Projects · Exam Blueprint · IT Foundations · Multi-Vendor</p>
+<p style="color:var(--ac2);font-size:.68rem;margin-top:2px">${SO.length} CCNA + ${LOWE_SO.length} Lowe sections · ${G.length} vocab · ${tQ} quiz questions</p></header>`;
 
 // Special sections
 h+=`<div class="sg" style="margin-bottom:10px">
@@ -2623,7 +3103,23 @@ h+=`<button class="sb" onclick="goSection(${id})"><span class="n">${id}</span>
 <span style="flex:1">${sec.title} <span class="lt ${sec.lc}">${sec.layer}</span></span>
 <span class="qc">${qc}Q·${vc}V${mHasPT?'·🖥️':''}</span></button>`;});
 h+='</div>';
-h+=`<p style="color:var(--mut);font-size:.6rem;text-align:center;margin-top:8px">Labs: Neil Anderson · Book: Odom CCNA OCG 2ed · Exam: Cisco 200-301</p>`;
+
+// ---- Lowe IT Foundations track ----
+h+=`<p style="font-size:.72rem;color:var(--gold);margin:14px 0 6px;font-weight:600">📙 IT Foundations Track — Doug Lowe, "Networking All-in-One" (the 7-in-1 book)</p>`;
+h+='<div class="sg">';
+LOWE_BOOKS.forEach(bk=>{
+h+=`<div style="font-size:.6rem;color:var(--gold);font-family:'JetBrains Mono',monospace;margin:4px 0 1px;padding-left:2px">${bk.n}</div>`;
+bk.secs.forEach(id=>{const sec=LOWE_SEC[id];if(!sec)return;
+const lquiz=S.find(s=>s.id===id);const lqc=lquiz?lquiz.q.length:0;
+h+=`<button class="sb gl" onclick="goSection(${id})"><span class="n">${sec.bc}</span>
+<span style="flex:1">${sec.title} <span class="lt ll">${sec.layer}</span></span>
+<span class="qc" style="color:var(--gold)">${lqc}Q·📙</span></button>`;});});
+h+='</div>';
+
+// ---- Certification roadmap ----
+h+=`<div class="rb" style="margin-top:12px"><strong>🛣️ Roadmap:</strong> CCNA 200-301 (now) → CCNP ENCOR 350-401 → ENARSI 300-410
+<span class="br" style="color:var(--mut)">ENARSI track gets added to this hub next. Meanwhile the 🧰 IT Foundations page has the Arista · Juniper · FortiGate · Aruba command translator, so Cisco isn't the only CLI you speak.</span></div>`;
+h+=`<p style="color:var(--mut);font-size:.6rem;text-align:center;margin-top:8px">Labs: Neil Anderson · Book: Odom CCNA OCG 2ed · IT Foundations: Lowe Networking AIO 7-in-1 · Exam: Cisco 200-301</p>`;
 a.innerHTML=h;}
 
 // ============ SECTION PAGE ============
@@ -2646,17 +3142,24 @@ h+=`<div class="sh"><h2>§${id}: ${sec.title} <span class="lt ${sec.lc}">${sec.l
 
 const labPg=LAB_PAGES[id];
 h+=`<div class="rb">`;
+if(sec.lowe){
+h+=`<strong>📙 Source:</strong> Doug Lowe, <i>Networking All-in-One For Dummies</i> — ${sec.lowe} <span style="color:var(--mut)">(full chapter PDF in the 📕 Read tab)</span>`;
+if(sec.xref&&sec.xref.length)h+=`<span class="br"><strong>🔗 Goes deeper in CCNA:</strong> ${sec.xref.filter(x=>SEC[x]).map(x=>`<span style="color:var(--ac);cursor:pointer;text-decoration:underline" onclick="goSection(${x})">§${x} ${SEC[x].title}</span>`).join(' · ')}</span>`;
+}else{
 if(labPg)h+=`<strong>📘 Lab Guide:</strong> <a href="lab_guide.pdf#page=${labPg}" target="_blank" style="color:var(--ac)">Page ${labPg}</a>`;
 else h+=`<strong>📘 Lab Guide:</strong> N/A`;
 h+=`<span class="br"><strong>📕 Odom OCG:</strong> ${sec.od}</span>`;
 if(examTopics.length>0)h+=`<span class="br"><strong>📋 Exam:</strong> ${examTopics.map(t=>t.id).join(', ')} (${[...new Set(examTopics.map(t=>t.pct))].join('/')}%)</span>`;
+const lx=LOWE_REV[id];
+if(lx&&lx.length)h+=`<span class="br"><strong>📙 Lowe background:</strong> ${lx.map(l=>`<span style="color:var(--gold);cursor:pointer;text-decoration:underline" onclick="goSection(${l})">${LOWE_SEC[l].bc} ${LOWE_SEC[l].title}</span>`).join(' · ')}</span>`;
+}
 h+=`</div>`;
 
 // TAB BAR - simplified: Study has mind map + interview embedded
 h+=`<div class="tab-bar">
 <div class="tab ${secTab==='study'?'active':''}" onclick="setTab('study')">📋 Study</div>
-<div class="tab ${secTab==='quiz'?'active':''}" onclick="setTab('quiz')">📝 Quiz (${qc})</div>
-<div class="tab ${secTab==='vocab'?'active':''}" onclick="setTab('vocab')">📚 Vocab (${vocab.length})</div>`;
+<div class="tab ${secTab==='quiz'?'active':''}" onclick="setTab('quiz')">📝 Quiz (${qc})</div>`;
+if(vocab.length>0)h+=`<div class="tab ${secTab==='vocab'?'active':''}" onclick="setTab('vocab')">📚 Vocab (${vocab.length})</div>`;
 if(hasAnyLab)h+=`<div class="tab ${secTab==='lab'?'active':''}" onclick="setTab('lab')">🔬 Lab</div>`;
 if(chapFiles.length>0)h+=`<div class="tab ${secTab==='read'?'active':''}" onclick="setTab('read')">📕 Read</div>`;
 h+=`</div>`;
@@ -2719,10 +3222,9 @@ else{h+=`<p style="color:var(--mut);padding:18px;text-align:center">No quiz ques
 h+=`</div>`;
 
 // ---- VOCAB TAB ----
-h+=`<div class="tab-content ${secTab==='vocab'?'active':''}">`;
+if(vocab.length>0){h+=`<div class="tab-content ${secTab==='vocab'?'active':''}">`;
 vocab.forEach(v=>h+=`<div class="vc"><div class="vt">${v.t}</div><div class="vd">${v.d}</div></div>`);
-if(!vocab.length)h+=`<p style="color:var(--mut);padding:18px;text-align:center">No vocab.</p>`;
-h+=`</div>`;
+h+=`</div>`;}
 
 // ---- LAB TAB ----
 if(hasAnyLab){h+=`<div class="tab-content ${secTab==='lab'?'active':''}">`;
@@ -2883,11 +3385,12 @@ const IT_TOPICS_COUNT=IT_TOPICS.reduce((s,c)=>s+c.topics.length,0);
 
 function renderITFound(a){
 let h=`<button class="bb" onclick="goMenu()">← Menu</button>`;
-h+=`<div class="sh"><h2>🧰 IT Foundations & Multi-Vendor</h2><p>Real-world IT context beyond pure CCNA, plus Juniper/Arista command parity so you're not Cisco-blind</p></div>`;
+h+=`<div class="sh"><h2>🧰 IT Foundations & Multi-Vendor</h2><p>Real-world IT context beyond pure CCNA, plus a Cisco ↔ Arista · Juniper · FortiGate · Aruba command translator so you're not Cisco-blind</p></div>`;
 
 h+=`<div class="tab-bar">
 <div class="tab ${itfTab==='sysadmin'?'active':''}" onclick="setITFTab('sysadmin')">🪟 IT/Sysadmin (${IT_TOPICS_COUNT})</div>
-<div class="tab ${itfTab==='vendor'?'active':''}" onclick="setITFTab('vendor')">🌐 Multi-Vendor (${VENDOR_FILES_COUNT})</div>
+<div class="tab ${itfTab==='xlate'?'active':''}" onclick="setITFTab('xlate')">🔀 Vendor Translator (${XV_ROWS})</div>
+<div class="tab ${itfTab==='vendor'?'active':''}" onclick="setITFTab('vendor')">🌐 Vendor PDFs (${VENDOR_FILES_COUNT})</div>
 <div class="tab ${itfTab==='itcaps'?'active':''}" onclick="setITFTab('itcaps')">🏗️ IT Capstones (${IT_CAPS.length})</div>
 </div>`;
 
@@ -2899,8 +3402,10 @@ h+=`<div class="cs"><h3>${cat.icon} ${cat.cat}</h3>`;
 cat.topics.forEach(t=>{h+=`<div style="margin-bottom:8px"><div style="font-size:.76rem;font-weight:700;color:var(--ac);margin-bottom:3px">${t.t}</div><ul style="margin:0">`;
 t.pts.forEach(p=>h+=`<li style="font-size:.7rem">${p}</li>`);h+=`</ul></div>`;});
 h+=`</div>`;});
-h+=`<div class="cs" style="border-color:#3d3500"><h3 style="color:var(--gold)">📖 Bonus Lowe Chapters (general background, no single hub section)</h3>`;
-BONUS_LOWE.forEach(bf=>{h+=`<div style="margin-bottom:4px"><a href="chapters/${bf.f}" target="_blank" style="color:var(--txt);font-size:.72rem;text-decoration:none">📄 ${bf.label} →</a></div>`;});
+h+=`<div class="cs" style="border-color:#3d3500"><h3 style="color:var(--gold)">📙 Lowe Track — every chapter is now a full hub section</h3>`;
+h+=`<p style="font-size:.64rem;color:var(--mut);margin-bottom:5px">Notes, quiz, cross-links, and the chapter PDF live inside each section (also listed on the main menu).</p>`;
+LOWE_BOOKS.forEach(bk=>{h+=`<div style="font-size:.62rem;color:var(--gold);font-family:'JetBrains Mono',monospace;margin:5px 0 2px">${bk.n}</div>`;
+bk.secs.forEach(id=>{const ls=LOWE_SEC[id];h+=`<span class="ch-btn" onclick="goSection(${id})">${ls.bc} ${ls.title}</span> `;});});
 h+=`</div>`;
 h+=`</div>`;
 
@@ -2915,6 +3420,39 @@ VENDOR_FILES[id].forEach(vf=>{h+=`<div style="margin-bottom:4px"><a href="vendor
 h+=`</div>`;});
 h+=`</div>`;
 
+// ---- VENDOR TRANSLATOR TAB ----
+h+=`<div class="tab-content ${itfTab==='xlate'?'active':''}">`;
+h+=`<div class="cs" style="border-color:#4c1d95"><h3 style="color:#c4b5fd">🗽 Vendor Landscape — NYC & the Industry</h3>`;
+h+=`<p style="font-size:.64rem;color:var(--mut);margin-bottom:5px">Who you'll actually meet on the job market, and why your CCNA still carries you there.</p>`;
+XV_LANDSCAPE.forEach(l=>{h+=`<div class="vc"><div class="vt">${l.v}</div><div class="vd">${l.w}</div></div>`;});
+h+=`</div>`;
+h+=`<div class="cs"><h3>🧪 Free Ways to Get Hands-On</h3>`;
+XV_LABS.forEach(l=>{h+=`<a class="extra-link" href="${l.u}" target="_blank">${l.n} →</a>`;});
+h+=`</div>`;
+h+=`<div class="cs" style="border-color:#4c1d95"><h3 style="color:#c4b5fd">🔀 Cisco ↔ Everything — Command Translator</h3>`;
+h+=`<p style="font-size:.64rem;color:var(--mut);margin-bottom:6px">${XV_ROWS} everyday tasks. Pick a vendor, filter by task or command. Same job, different dialect.</p>`;
+h+=`<div style="margin-bottom:6px">`;
+XV_VENDORS.forEach(v=>{h+=`<span class="region-btn ${xvVendor===v.id?'active':''}" onclick="setXV('${v.id}')">${v.n}</span>`;});
+h+=`</div>`;
+const xvSel=XV_VENDORS.find(v=>v.id===xvVendor);
+h+=`<div class="rb" style="margin-bottom:7px"><strong>${xvSel.n}:</strong> ${xvSel.note}</div>`;
+h+=`<input class="gs" id="xvi" placeholder="Filter: vlan, ospf, save, trunk, ssh..." value="${xvSrch.replace(/"/g,'&quot;')}" oninput="fXV(this.value)">`;
+const xq=xvSrch.toLowerCase();
+let xvAny=false;
+XVEND.forEach(cat=>{
+const xrows=cat.rows.filter(r=>!xq||r.t.toLowerCase().includes(xq)||r.cisco.toLowerCase().includes(xq)||(r[xvVendor]||'').toLowerCase().includes(xq));
+if(!xrows.length)return;xvAny=true;
+h+=`<div class="gl2">${cat.cat}</div>`;
+xrows.forEach(r=>{h+=`<div class="ls"><div class="sn2">${r.t}</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:5px;margin-top:3px">
+<div><span style="font-size:.54rem;font-family:'JetBrains Mono',monospace;color:var(--ac);font-weight:700">CISCO IOS</span><span class="sc">${r.cisco}</span></div>
+<div><span style="font-size:.54rem;font-family:'JetBrains Mono',monospace;color:#c4b5fd;font-weight:700">${xvSel.n.toUpperCase()}</span><span class="sc" style="color:#c4b5fd">${r[xvVendor]}</span></div>
+</div></div>`;});
+});
+if(!xvAny)h+=`<p style="color:var(--mut);text-align:center;padding:14px">No matching tasks — try a shorter word.</p>`;
+h+=`</div>`;
+h+=`</div>`;
+
 // ---- IT CAPSTONES TAB ----
 h+=`<div class="tab-content ${itfTab==='itcaps'?'active':''}">`;
 h+=`<p style="font-size:.72rem;color:var(--mut);margin-bottom:10px;line-height:1.4">Broader infrastructure builds — these go past pure Cisco topology design into the servers, identity, and cloud pieces a real environment also needs.</p>`;
@@ -2927,7 +3465,8 @@ h+=`</ul><div class="cap-del">📦 ${cap.deliverable}</div><p style="font-size:.
 h+=`</div>`;
 
 h+=`<div style="text-align:center;padding:10px"><button class="bb" onclick="goMenu()">← Menu</button></div>`;
-a.innerHTML=h;}
+a.innerHTML=h;
+const xe=document.getElementById('xvi');if(xe&&xvSrch){xe.focus();xe.setSelectionRange(xvSrch.length,xvSrch.length);}}
 
 
 
