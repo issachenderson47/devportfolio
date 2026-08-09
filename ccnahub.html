@@ -54,6 +54,43 @@ header p{color:var(--mut);margin-top:3px;font-size:.75rem}
 .rb{background:#0f172a;border:1px solid var(--bor);border-radius:6px;padding:7px 9px;margin-bottom:7px;font-size:.68rem;color:#94a3b8}
 .rb strong{color:var(--ac);font-weight:600}
 .rb .br{display:block;margin-top:2px}
+.xv-legend{background:#0f172a;border:1px solid var(--bor);border-radius:7px;padding:9px 10px;margin-bottom:8px}
+.xv-legend-title{font-size:.7rem;font-weight:700;color:var(--txt);margin-bottom:6px}
+.xv-legend-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.xv-legend-row{display:grid;grid-template-columns:8px auto;gap:6px;align-items:baseline;margin-bottom:4px;font-size:.62rem;line-height:1.35}
+.xv-swatch{width:8px;height:8px;border-radius:2px;align-self:center}
+.xv-legend-name{font-weight:700;font-family:'JetBrains Mono',monospace;grid-column:2;display:block}
+.xv-legend-note{color:#94a3b8;grid-column:2;display:block;margin-top:1px}
+.xv-legend-symbols{font-size:.62rem;color:#94a3b8;line-height:1.6;border-left:1px solid var(--bor);padding-left:10px}
+.xv-legend-symbols code{background:#1a2332;color:var(--ac);padding:0 3px;border-radius:3px;font-size:.6rem}
+.xv-sym{display:inline-block;width:16px;color:var(--ac2);font-weight:700;text-align:center}
+.xv-table{border-collapse:collapse;width:100%;min-width:1080px}
+.xv-table th{position:sticky;top:0;background:#0a0e17;text-align:left;font-size:.58rem;font-family:'JetBrains Mono',monospace;font-weight:800;padding:5px 8px;border-bottom:2px solid var(--bor);white-space:nowrap;letter-spacing:.02em}
+.xv-table th.xv-task-h{color:var(--txt)}
+.xv-table td{vertical-align:top;padding:6px 8px;border-bottom:1px solid var(--bor)}
+.xv-table td.xv-task{font-size:.68rem;font-weight:600;color:var(--txt);min-width:150px;max-width:190px}
+.xv-table td.xv-cmd{font-family:'JetBrains Mono',monospace;font-size:.6rem;white-space:pre-wrap;min-width:170px;color:#cbd5e1;line-height:1.45}
+.xv-table tbody tr:hover{background:#0f172a}
+.new-badge{font-size:.52rem;font-weight:800;letter-spacing:.03em;color:#1a1a0a;background:var(--gold);padding:1px 6px;border-radius:3px;vertical-align:middle;font-family:'JetBrains Mono',monospace}
+.tts-btn{background:var(--card2);border:1px solid var(--ac2);color:var(--ac2);font-size:.66rem;font-weight:700;padding:5px 10px;border-radius:6px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;font-family:inherit;transition:background .15s}
+.tts-btn:hover{background:var(--ac2);color:#fff}
+.tts-overlay{position:fixed;inset:0;background:rgba(5,7,12,.88);z-index:200;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(2px)}
+.tts-overlay.open{display:flex}
+.tts-panel{background:var(--bg);border:1px solid var(--bor);border-top:2px solid var(--ac2);border-radius:14px 14px 0 0;width:100%;max-width:760px;max-height:82vh;display:flex;flex-direction:column;box-shadow:0 -8px 30px rgba(0,0,0,.5)}
+.tts-head{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--bor);flex-shrink:0}
+.tts-head h4{font-size:.8rem;color:var(--txt);margin:0;font-weight:700}
+.tts-close{background:none;border:none;color:var(--mut);font-size:1.1rem;cursor:pointer;line-height:1;padding:2px 6px}
+.tts-close:hover{color:var(--txt)}
+.tts-body{overflow-y:auto;padding:16px 18px;font-size:.92rem;line-height:1.9;color:#cbd5e1;flex:1}
+.tts-w{padding:1px 2px;border-radius:3px;transition:background .1s,color .1s}
+.tts-w.active{background:var(--ac2);color:#fff}
+.tts-controls{display:flex;align-items:center;gap:10px;padding:10px 14px;border-top:1px solid var(--bor);flex-wrap:wrap;flex-shrink:0}
+.tts-play{background:var(--ac2);color:#fff;border:none;width:38px;height:38px;border-radius:50%;font-size:1rem;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.tts-stop{background:none;border:1px solid var(--bor);color:var(--mut);width:32px;height:32px;border-radius:50%;font-size:.8rem;cursor:pointer;flex-shrink:0}
+.tts-select{background:var(--card);border:1px solid var(--bor);color:var(--txt);font-size:.66rem;padding:4px 6px;border-radius:5px;font-family:inherit;max-width:180px}
+.tts-rate{width:70px;accent-color:var(--ac2)}
+.tts-label{font-size:.6rem;color:var(--mut);font-family:'JetBrains Mono',monospace}
+.tts-hint{font-size:.6rem;color:var(--mut);padding:0 14px 10px;line-height:1.5}
 .qc2{background:var(--card);border:1px solid var(--bor);border-radius:7px;padding:10px;margin-bottom:7px}
 .qc2 .qn{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--ac);margin-bottom:3px}
 .qc2 .qt{font-size:.8rem;line-height:1.4;margin-bottom:6px}
@@ -2509,14 +2546,62 @@ const JOB_SITES=[
 
 const JOB_EXTRA=[
 {name:"Cisco Careers",url:"https://jobs.cisco.com/jobs/SearchJobs/?listFilterMode=1",note:"Direct from Cisco for entry-level + certified roles"},
-{name:"Robert Half",url:"https://www.roberthalf.com/us/en/jobs/technology",note:"Strong for IT contract + permanent tech placements"},
-{name:"Handshake",url:"https://joinhandshake.com/",note:"Excellent for recent grads / entry-level IT positions"},
+{name:"Robert Half Technology",url:"https://www.roberthalf.com/us/en/jobs/technology",note:"Strong for IT contract + permanent tech placements — contract-to-hire is a real, fast way in"},
+{name:"TEKsystems",url:"https://www.teksystems.com/en/job-seekers",note:"One of the biggest IT staffing firms for network/NOC contract roles — recruiters actively place CCNA holders"},
+{name:"Motion Recruitment / Jobspring",url:"https://motionrecruitment.com/tech-jobs",note:"NYC-strong tech staffing agency, good for network/infra contract-to-hire"},
+{name:"Apex Systems",url:"https://www.apexsystems.com/find-a-job",note:"Large IT staffing firm, frequent network technician/NOC postings"},
+{name:"Mondo",url:"https://www.mondo.com/find-a-job/",note:"NYC-headquartered tech staffing agency — strong local network/infrastructure placements"},
+{name:"Handshake",url:"https://joinhandshake.com/",note:"Excellent for recent grads / entry-level IT positions if you have any school affiliation"},
 {name:"We Work Remotely",url:"https://weworkremotely.com/categories/remote-devops-sysadmin-jobs",note:"Solid for remote network/IT jobs"},
-{name:"FlexJobs",url:"https://www.flexjobs.com/remote-jobs/computer-it",note:"Curated remote/flexible tech jobs (paid but higher quality)"},
-{name:"Monster",url:"https://www.monster.com/jobs/search?q=CCNA+network+engineer",note:"Broader IT searches"},
+{name:"Per Scholas (NYC)",url:"https://perscholas.org/locations/nyc/",note:"Free NYC nonprofit tech training + DIRECT employer job placement pipeline — huge for career changers, not just a course"},
+{name:"NPower",url:"https://www.npower.org/",note:"Free tech training + job placement nonprofit with an NYC chapter — same model as Per Scholas, worth applying to both"},
+{name:"TechExams.net Forum",url:"https://community.infosecinstitute.com/",note:"The long-running cert community forum — search 'landed a job' threads for real CCNA-to-job stories and what worked"},
+{name:"Cisco Learning Network",url:"https://learningnetwork.cisco.com/",note:"Official Cisco community — career advice threads from people who just passed CCNA and are job hunting"},
 {name:"r/networkingjobs",url:"https://www.reddit.com/r/networkingjobs/",note:"Reddit — people post openings and share success stories"},
 {name:"r/ITCareerQuestions",url:"https://www.reddit.com/r/ITCareerQuestions/",note:"Career advice, resume reviews, interview tips"},
 {name:"r/ccna",url:"https://www.reddit.com/r/ccna/",note:"CCNA community — study tips + job hunting advice"},
+{name:"r/msp",url:"https://www.reddit.com/r/msp/",note:"MSP-side community — good for understanding field/network tech roles from the employer side"},
+];
+
+// Where NYC candidates specifically say they get traction — meetups, orgs, events
+const JOB_NYC_LOCAL=[
+{name:"ONUG (Open Networking User Group)",note:"An enterprise networking user group founded in NYC — events/webinars are a legitimate way to meet real NYC network engineers and hear who's hiring.",url:"https://onug.net/"},
+{name:"NY Tech Meetup",note:"The largest general NYC tech meetup — not network-specific, but a reliable way to build a local professional network and hear about openings before they're posted.",url:"https://www.meetup.com/ny-tech/"},
+{name:"ISACA NY Metro Chapter",note:"IT audit/security-adjacent professional org with NYC chapter events — useful for networking (the human kind) into infrastructure/security-adjacent roles.",url:"https://www.isaca.org/chapters6/New-York-Metropolitan"},
+{name:"Meetup.com — search 'network engineer NYC' / 'sysadmin NYC'",note:"Smaller, informal local groups appear/disappear — search fresh each time you're job hunting rather than relying on a stale bookmark.",url:"https://www.meetup.com/find/?keywords=network%20engineer&location=us--ny--new-york"},
+];
+
+// Resume tactics that actually get past ATS filters and human skim-readers
+const JOB_RESUME_TIPS=[
+{t:"Put CCNA right under your name",d:"Certifications go in the header or a top-of-resume 'Certifications' line — recruiters and ATS keyword scans often never reach a buried 'Education' section at the bottom."},
+{t:"Mirror the exact keywords from the posting",d:"If the posting says 'VLAN', 'OSPF', 'Cisco IOS', 'ACLs' — use those exact terms in your Skills/Experience sections. ATS software does literal keyword matching, not synonym matching."},
+{t:"Quantify everything you can",d:"'Resolved 30+ tickets/week', 'Supported a 200-user network', 'Reduced ticket backlog 25%' beats 'Responsible for troubleshooting' every time — numbers signal real scope even for lab/volunteer work."},
+{t:"Keep formatting ATS-safe",d:"No tables, text boxes, columns, or graphics inside the resume body — many ATS parsers scramble or drop content in these. Standard single-column format with clear section headers (Experience, Skills, Certifications, Projects, Education)."},
+{t:"Add a dedicated Technical Skills section",d:"List concretely: Cisco IOS, VLANs/802.1Q Trunking, OSPF, STP, ACLs, DHCP/DNS, Subnetting/VLSM, [monitoring tool], [ticketing tool] — this is what both ATS scans and a fast human skim are looking for first."},
+{t:"Treat home lab / Packet Tracer / GNS3 work as real experience",d:"If you don't have professional experience yet, add a 'Projects' section and describe scope like a job: what you built, what protocols/features you configured, what you troubleshot, and the outcome — written the same way you'd describe a work task."},
+{t:"One page, always, for entry-level",d:"Recruiters spend seconds on a first pass — a tight one-page resume reads as more competent than a padded two-pager with no relevant experience to fill it."},
+{t:"Tailor per application, every time",d:"Swap keyword emphasis and bullet order to match each specific posting rather than blasting one static resume everywhere — a resume that mirrors the posting's own language consistently outperforms a generic one."},
+{t:"Submit the file format the portal asks for",d:"Most ATS prefer a single-column PDF or .docx — if a portal doesn't specify, PDF preserves your formatting exactly as designed."},
+];
+
+// LinkedIn tactics people actually report getting responses from
+const JOB_LINKEDIN_TIPS=[
+{t:"Turn on 'Open to Work'",d:"Set visibility to recruiters-only if you're worried about a current employer seeing it — it meaningfully increases recruiter InMail/search visibility for entry-level candidates."},
+{t:"Write a keyword-rich headline, not just a job title",d:"Example: 'CCNA-Certified | Aspiring Network Engineer | Home Lab: OSPF · VLANs · ACLs' — LinkedIn's own search and recruiter search both weight the headline heavily."},
+{t:"Message the hiring manager or team lead directly, not just the recruiter",d:"A short, specific, non-generic note gets far better reply rates than applying and waiting silently. Template: \"Hi [Name] — I saw the [Role] opening at [Company] and wanted to reach out directly. I'm CCNA-certified with [one specific relevant skill/project], and would love to learn more about the team. Happy to share my resume if useful — thanks for your time!\""},
+{t:"Set precise job alerts",d:"Alert on exact phrases — 'CCNA', 'NOC technician', 'network technician', 'junior network engineer' — not just the broad title 'network engineer', which surfaces mostly senior roles you'll be filtered out of."},
+{t:"Post or comment occasionally on networking content",d:"Even light activity (commenting on a Cisco/networking post, sharing a lab project) increases how often LinkedIn's algorithm surfaces your profile to recruiters searching the space."},
+{t:"Follow up 5-7 business days after applying",d:"A short, polite follow-up message to the recruiter or hiring manager referencing the specific role and date applied is a completely normal, expected move — silence after applying is the default outcome without it."},
+];
+
+// A minimal application-tracking workflow — copy straight into a spreadsheet
+const JOB_TRACKER_COLS=["Company","Role","Date Applied","Source","Contact / Referral","Status","Follow-up Date","Notes"];
+const JOB_TRACKER_STEPS=[
+"Log every application the moment you submit it — memory is not a tracking system once you're past 15-20 applications.",
+"Set a Follow-up Date 5-7 business days out for every row when you log it, so follow-ups actually happen instead of being forgotten.",
+"Use a consistent Status pipeline: Applied → Screening Call → Technical Interview → Final/Panel → Offer / Rejected — so you can see where things are actually stalling.",
+"Review weekly: which Source column values are producing interviews? Put more time into what's working and cut what isn't after ~3-4 weeks of data.",
+"Prioritize quality (tailored resume + real follow-up) over raw volume once you're past the first couple weeks — 5 well-targeted applications a day beats 30 identical blasts.",
 ];
 
 // ============================================================
@@ -2992,49 +3077,52 @@ S.push(...LOWE_QUIZ);
 // different dialect.
 // ============================================================
 const XV_VENDORS=[
-{id:"arista",n:"Arista EOS",note:"EOS is deliberately ~95% IOS-like — the easiest jump from CCNA. It runs on Linux: type bash and you get a real shell (tcpdump included)."},
-{id:"junos",n:"Juniper Junos",note:"Junos edits a candidate config: nothing applies until you type commit. Hierarchical set/delete syntax, rollback 1 to undo, commit confirmed as a safety net."},
-{id:"forti",n:"FortiGate FortiOS",note:"FortiOS is a firewall-first, tree-based CLI: config → edit → set → next/end (saves as you exit). Traffic flows only where a firewall policy allows it. Many teams drive it from the GUI and use the CLI for diagnostics."},
-{id:"aruba",n:"Aruba AOS-CX",note:"AOS-CX feels IOS-like with modern touches (checkpoints, REST API). Big in campus/branch switching alongside Aruba Wi-Fi."},
+{id:"cisco",n:"Cisco IOS/XE",short:"CISCO",color:"#22d3ee",note:"The anchor column — every other vendor in this chart is described relative to it. Imperative CLI: a command applies the moment you press Enter."},
+{id:"arista",n:"Arista EOS",short:"ARISTA",color:"#34d399",note:"EOS is deliberately ~95% IOS-like — the easiest jump from CCNA. It runs on Linux: type bash and you get a real shell (tcpdump included)."},
+{id:"junos",n:"Juniper Junos",short:"JUNOS",color:"#a78bfa",note:"Junos edits a candidate config: nothing applies until you type commit. Hierarchical set/delete syntax, rollback 1 to undo, commit confirmed as a safety net."},
+{id:"forti",n:"FortiGate FortiOS",short:"FORTIOS",color:"#fb923c",note:"FortiOS is a firewall-first, tree-based CLI: config → edit → set → next/end (saves as you exit). Traffic flows only where a firewall policy allows it. Many teams drive it from the GUI and use the CLI for diagnostics."},
+{id:"aruba",n:"Aruba AOS-CX (HPE)",short:"ARUBA",color:"#f472b6",note:"AOS-CX feels IOS-like with modern touches (checkpoints, REST API). Big in campus/branch switching alongside Aruba Wi-Fi."},
+{id:"mikrotik",n:"MikroTik RouterOS",short:"MIKROTIK",color:"#facc15",note:"A flat menu tree (/interface, /ip, /routing…), not a config-then-save model — every command applies and persists immediately. Dominant with ISPs/WISPs and budget-conscious shops on price-to-feature ratio."},
+{id:"paloalto",n:"Palo Alto PAN-OS",short:"PAN-OS",color:"#60a5fa",note:"PAN-OS's CLI mirrors Junos's candidate-config/commit model (set … then commit), but almost nobody drives day-to-day admin from it — real usage lives in the GUI. Firewall-first: zones and security-policy rules stand in for switch-style VLANs and ACLs."},
 ];
 const XVEND=[
 {cat:"Config & Survival Basics",rows:[
-{t:"Enter configuration mode",cisco:"configure terminal",arista:"configure",junos:"configure\n(opens a candidate config)",forti:"config system global\n(config trees per feature — no single global mode)",aruba:"configure terminal"},
-{t:"Save the configuration",cisco:"copy running-config startup-config\n(or: write memory)",arista:"write\n(or: copy running-config startup-config)",junos:"commit\n(nothing applies until you commit)",forti:"end\n(FortiOS saves as you exit each config tree)",aruba:"write memory"},
-{t:"Safety net before a risky change",cisco:"reload in 10\n(cancel with: reload cancel)",arista:"configure session CHG1\n...changes...\ncommit timer 00:10:00",junos:"commit confirmed 10\n(auto-rollback in 10 min unless committed again)",forti:"execute backup config flash PRECHANGE",aruba:"checkpoint copy running-config PRECHANGE"},
-{t:"Show the running config",cisco:"show running-config",arista:"show running-config",junos:"show configuration\n(or: show configuration | display set)",forti:"show full-configuration",aruba:"show running-config"},
-{t:"Undo a setting",cisco:"no ip address 10.1.1.1 255.255.255.0",arista:"no ip address 10.1.1.1/24",junos:"delete interfaces ge-0/0/0 unit 0 family inet\n(or roll everything back: rollback 1, then commit)",forti:"unset ip\n(inside the edit node)",aruba:"no ip address 10.1.1.1/24"},
-{t:"Software version / hardware info",cisco:"show version",arista:"show version",junos:"show version",forti:"get system status",aruba:"show version"},
-{t:"Set the hostname",cisco:"hostname CORE1",arista:"hostname CORE1",junos:"set system host-name CORE1",forti:"config system global\n set hostname CORE1\nend",aruba:"hostname CORE1"},
+{t:"Enter configuration mode",cisco:"configure terminal",arista:"configure",junos:"configure\n(opens a candidate config)",forti:"config system global\n(config trees per feature — no single global mode)",aruba:"configure terminal",mikrotik:"— no separate config mode: every command\nbelow runs live from the root menu (/interface, /ip…)",paloalto:"configure\n(opens a candidate config, Junos-style)"},
+{t:"Save the configuration",cisco:"copy running-config startup-config\n(or: write memory)",arista:"write\n(or: copy running-config startup-config)",junos:"commit\n(nothing applies until you commit)",forti:"end\n(FortiOS saves as you exit each config tree)",aruba:"write memory",mikrotik:"— no save step: each command persists to\nflash the instant you press Enter",paloalto:"commit\n(nothing applies until you commit)"},
+{t:"Safety net before a risky change",cisco:"reload in 10\n(cancel with: reload cancel)",arista:"configure session CHG1\n...changes...\ncommit timer 00:10:00",junos:"commit confirmed 10\n(auto-rollback in 10 min unless committed again)",forti:"execute backup config flash PRECHANGE",aruba:"checkpoint copy running-config PRECHANGE",mikrotik:"/system backup save name=PRECHANGE\n(revert with: /system backup load name=PRECHANGE)",paloalto:"save config to PRECHANGE.xml\n(revert with: load config from PRECHANGE.xml, then commit)"},
+{t:"Show the running config",cisco:"show running-config",arista:"show running-config",junos:"show configuration\n(or: show configuration | display set)",forti:"show full-configuration",aruba:"show running-config",mikrotik:"/export\n(or: /export verbose)",paloalto:"show config running"},
+{t:"Undo a setting",cisco:"no ip address 10.1.1.1 255.255.255.0",arista:"no ip address 10.1.1.1/24",junos:"delete interfaces ge-0/0/0 unit 0 family inet\n(or roll everything back: rollback 1, then commit)",forti:"unset ip\n(inside the edit node)",aruba:"no ip address 10.1.1.1/24",mikrotik:"/ip address remove [find address=10.1.1.1/24]\n(items are removed by ID/filter, not retyped)",paloalto:"delete network interface ethernet ethernet1/1 layer3 ip 10.1.1.1/24\ncommit"},
+{t:"Software version / hardware info",cisco:"show version",arista:"show version",junos:"show version",forti:"get system status",aruba:"show version",mikrotik:"/system resource print\n(package versions: /system package print)",paloalto:"show system info"},
+{t:"Set the hostname",cisco:"hostname CORE1",arista:"hostname CORE1",junos:"set system host-name CORE1",forti:"config system global\n set hostname CORE1\nend",aruba:"hostname CORE1",mikrotik:"/system identity set name=CORE1",paloalto:"set deviceconfig system hostname CORE1\ncommit"},
 ]},
 {cat:"Interfaces & IP",rows:[
-{t:"Interface summary (state + IPs)",cisco:"show ip interface brief",arista:"show ip interface brief",junos:"show interfaces terse",forti:"get system interface physical",aruba:"show interface brief"},
-{t:"Give an interface an IP",cisco:"interface g0/0\n ip address 10.1.1.1 255.255.255.0\n no shutdown",arista:"interface Ethernet1\n no switchport\n ip address 10.1.1.1/24",junos:"set interfaces ge-0/0/0 unit 0 family inet address 10.1.1.1/24",forti:"config system interface\n edit port1\n  set ip 10.1.1.1 255.255.255.0\n  set allowaccess ping ssh https\nend",aruba:"interface 1/1/1\n routing\n ip address 10.1.1.1/24\n no shutdown"},
-{t:"Disable / enable a port",cisco:"shutdown\nno shutdown",arista:"shutdown\nno shutdown",junos:"set interfaces ge-0/0/0 disable\ndelete interfaces ge-0/0/0 disable",forti:"set status down\nset status up\n(inside: config system interface, edit port1)",aruba:"shutdown\nno shutdown"},
-{t:"Interface errors & counters",cisco:"show interfaces g0/0",arista:"show interfaces Ethernet1",junos:"show interfaces ge-0/0/0 extensive",forti:"diagnose hardware deviceinfo nic port1",aruba:"show interface 1/1/1"},
-{t:"See connected neighbors",cisco:"show cdp neighbors\nshow lldp neighbors",arista:"show lldp neighbors",junos:"show lldp neighbors",forti:"— firewall, not a switch: check the LLDP/CDP\ntable on the switch it plugs into",aruba:"show lldp neighbor-info"},
+{t:"Interface summary (state + IPs)",cisco:"show ip interface brief",arista:"show ip interface brief",junos:"show interfaces terse",forti:"get system interface physical",aruba:"show interface brief",mikrotik:"/ip address print\n(link state: /interface print)",paloalto:"show interface all"},
+{t:"Give an interface an IP",cisco:"interface g0/0\n ip address 10.1.1.1 255.255.255.0\n no shutdown",arista:"interface Ethernet1\n no switchport\n ip address 10.1.1.1/24",junos:"set interfaces ge-0/0/0 unit 0 family inet address 10.1.1.1/24",forti:"config system interface\n edit port1\n  set ip 10.1.1.1 255.255.255.0\n  set allowaccess ping ssh https\nend",aruba:"interface 1/1/1\n routing\n ip address 10.1.1.1/24\n no shutdown",mikrotik:"/ip address add address=10.1.1.1/24 interface=ether1",paloalto:"set network interface ethernet ethernet1/1 layer3 ip 10.1.1.1/24\nset zone LAN network layer3 ethernet1/1\ncommit"},
+{t:"Disable / enable a port",cisco:"shutdown\nno shutdown",arista:"shutdown\nno shutdown",junos:"set interfaces ge-0/0/0 disable\ndelete interfaces ge-0/0/0 disable",forti:"set status down\nset status up\n(inside: config system interface, edit port1)",aruba:"shutdown\nno shutdown",mikrotik:"/interface disable ether1\n/interface enable ether1",paloalto:"set network interface ethernet ethernet1/1 link-state down\nset network interface ethernet ethernet1/1 link-state up"},
+{t:"Interface errors & counters",cisco:"show interfaces g0/0",arista:"show interfaces Ethernet1",junos:"show interfaces ge-0/0/0 extensive",forti:"diagnose hardware deviceinfo nic port1",aruba:"show interface 1/1/1",mikrotik:"/interface print stats\n/interface monitor-traffic ether1",paloalto:"show interface ethernet1/1"},
+{t:"See connected neighbors",cisco:"show cdp neighbors\nshow lldp neighbors",arista:"show lldp neighbors",junos:"show lldp neighbors",forti:"— firewall, not a switch: check the LLDP/CDP\ntable on the switch it plugs into",aruba:"show lldp neighbor-info",mikrotik:"/ip neighbor print\n(RouterOS's own MNDP, plus CDP/LLDP if seen)",paloalto:"set network lldp enable yes\nshow lldp neighbors all"},
 ]},
 {cat:"VLANs & Switching",rows:[
-{t:"Create VLAN 10 named USERS",cisco:"vlan 10\n name USERS",arista:"vlan 10\n name USERS",junos:"set vlans USERS vlan-id 10",forti:"config system interface\n edit VLAN10\n  set interface port1\n  set vlanid 10\nend\n(a VLAN = a tagged subinterface on FortiOS)",aruba:"vlan 10\n name USERS"},
-{t:"Access port in VLAN 10",cisco:"interface g0/1\n switchport mode access\n switchport access vlan 10",arista:"interface Ethernet2\n switchport mode access\n switchport access vlan 10",junos:"set interfaces ge-0/0/1 unit 0 family ethernet-switching interface-mode access vlan members USERS",forti:"— FortiGate ports are routed by default;\nswitching lives on FortiSwitch via FortiLink",aruba:"interface 1/1/2\n vlan access 10"},
-{t:"802.1Q trunk carrying VLANs 10 & 20",cisco:"interface g0/2\n switchport mode trunk\n switchport trunk allowed vlan 10,20",arista:"interface Ethernet3\n switchport mode trunk\n switchport trunk allowed vlan 10,20",junos:"set interfaces ge-0/0/2 unit 0 family ethernet-switching interface-mode trunk vlan members [ USERS SERVERS ]",forti:"tag both VLAN subinterfaces onto one physical port\n(edit VLAN10 and VLAN20, both: set interface port1)",aruba:"interface 1/1/3\n vlan trunk allowed 10,20"},
-{t:"Show VLANs",cisco:"show vlan brief",arista:"show vlan",junos:"show vlans",forti:"get system interface\n(look for the vlanid entries)",aruba:"show vlan"},
-{t:"MAC address table",cisco:"show mac address-table",arista:"show mac address-table",junos:"show ethernet-switching table",forti:"— see the switch's table; on-box the closest is:\nget system arp",aruba:"show mac-address-table"},
-{t:"ARP table",cisco:"show ip arp",arista:"show ip arp",junos:"show arp",forti:"get system arp",aruba:"show arp"},
-{t:"Spanning-tree status",cisco:"show spanning-tree",arista:"show spanning-tree",junos:"show spanning-tree bridge\nshow spanning-tree interface",forti:"— STP is your switches' job; FortiLink-managed\nFortiSwitch: diagnose switch-controller commands",aruba:"show spanning-tree"},
+{t:"Create VLAN 10 named USERS",cisco:"vlan 10\n name USERS",arista:"vlan 10\n name USERS",junos:"set vlans USERS vlan-id 10",forti:"config system interface\n edit VLAN10\n  set interface port1\n  set vlanid 10\nend\n(a VLAN = a tagged subinterface on FortiOS)",aruba:"vlan 10\n name USERS",mikrotik:"/interface vlan add name=USERS vlan-id=10 interface=bridge1\n(a VLAN is its own virtual interface, not a table entry)",paloalto:"set network vlan VLAN10 vlan-interface vlan.10\n(PAN-OS is a firewall, not a switch — a \"VLAN\" here is\na virtual routed interface)"},
+{t:"Access port in VLAN 10",cisco:"interface g0/1\n switchport mode access\n switchport access vlan 10",arista:"interface Ethernet2\n switchport mode access\n switchport access vlan 10",junos:"set interfaces ge-0/0/1 unit 0 family ethernet-switching interface-mode access vlan members USERS",forti:"— FortiGate ports are routed by default;\nswitching lives on FortiSwitch via FortiLink",aruba:"interface 1/1/2\n vlan access 10",mikrotik:"/interface bridge port add bridge=bridge1 interface=ether2 pvid=10",paloalto:"— no switched access ports; bind the interface\n(or tagged subinterface) straight to the VLAN object:\nset network vlan VLAN10 interface ethernet1/2"},
+{t:"802.1Q trunk carrying VLANs 10 & 20",cisco:"interface g0/2\n switchport mode trunk\n switchport trunk allowed vlan 10,20",arista:"interface Ethernet3\n switchport mode trunk\n switchport trunk allowed vlan 10,20",junos:"set interfaces ge-0/0/2 unit 0 family ethernet-switching interface-mode trunk vlan members [ USERS SERVERS ]",forti:"tag both VLAN subinterfaces onto one physical port\n(edit VLAN10 and VLAN20, both: set interface port1)",aruba:"interface 1/1/3\n vlan trunk allowed 10,20",mikrotik:"/interface bridge vlan add bridge=bridge1 tagged=ether3,bridge1 vlan-ids=10,20\n(requires vlan-filtering=yes on the bridge)",paloalto:"set network interface ethernet ethernet1/1.10 tag 10\nset network interface ethernet ethernet1/1.20 tag 20\n(trunking = one tagged subinterface per VLAN, not a single trunk mode)"},
+{t:"Show VLANs",cisco:"show vlan brief",arista:"show vlan",junos:"show vlans",forti:"get system interface\n(look for the vlanid entries)",aruba:"show vlan",mikrotik:"/interface vlan print\n/interface bridge vlan print",paloalto:"show vlan all"},
+{t:"MAC address table",cisco:"show mac address-table",arista:"show mac address-table",junos:"show ethernet-switching table",forti:"— see the switch's table; on-box the closest is:\nget system arp",aruba:"show mac-address-table",mikrotik:"/interface bridge host print",paloalto:"— no L2-learning switch table in a typical L3\ndeployment; if using VLAN objects: show mac all"},
+{t:"ARP table",cisco:"show ip arp",arista:"show ip arp",junos:"show arp",forti:"get system arp",aruba:"show arp",mikrotik:"/ip arp print",paloalto:"show arp all"},
+{t:"Spanning-tree status",cisco:"show spanning-tree",arista:"show spanning-tree",junos:"show spanning-tree bridge\nshow spanning-tree interface",forti:"— STP is your switches' job; FortiLink-managed\nFortiSwitch: diagnose switch-controller commands",aruba:"show spanning-tree",mikrotik:"/interface bridge print\n(port roles: /interface bridge port print)",paloalto:"— PAN-OS doesn't run STP; it's a firewall,\nnot a campus LAN switch"},
 ]},
 {cat:"Routing",rows:[
-{t:"Default route via 203.0.113.1",cisco:"ip route 0.0.0.0 0.0.0.0 203.0.113.1",arista:"ip route 0.0.0.0/0 203.0.113.1",junos:"set routing-options static route 0.0.0.0/0 next-hop 203.0.113.1",forti:"config router static\n edit 1\n  set gateway 203.0.113.1\n  set device wan1\nend",aruba:"ip route 0.0.0.0/0 203.0.113.1"},
-{t:"Show the routing table",cisco:"show ip route",arista:"show ip route",junos:"show route",forti:"get router info routing-table all",aruba:"show ip route"},
-{t:"Enable OSPF area 0 on 10.1.1.0/24",cisco:"router ospf 1\n network 10.1.1.0 0.0.0.255 area 0",arista:"router ospf 1\n network 10.1.1.0/24 area 0",junos:"set protocols ospf area 0.0.0.0 interface ge-0/0/0.0",forti:"config router ospf\n set router-id 1.1.1.1\n config area\n  edit 0.0.0.0\n next\n end\n config network\n  edit 1\n   set prefix 10.1.1.0 255.255.255.0\n   set area 0.0.0.0\nend",aruba:"router ospf 1\n area 0\ninterface 1/1/1\n ip ospf 1 area 0"},
-{t:"OSPF neighbors",cisco:"show ip ospf neighbor",arista:"show ip ospf neighbor",junos:"show ospf neighbor",forti:"get router info ospf neighbor",aruba:"show ip ospf neighbor"},
+{t:"Default route via 203.0.113.1",cisco:"ip route 0.0.0.0 0.0.0.0 203.0.113.1",arista:"ip route 0.0.0.0/0 203.0.113.1",junos:"set routing-options static route 0.0.0.0/0 next-hop 203.0.113.1",forti:"config router static\n edit 1\n  set gateway 203.0.113.1\n  set device wan1\nend",aruba:"ip route 0.0.0.0/0 203.0.113.1",mikrotik:"/ip route add dst-address=0.0.0.0/0 gateway=203.0.113.1",paloalto:"set network virtual-router default routing-table ip static-route DEFAULT destination 0.0.0.0/0 nexthop ip-address 203.0.113.1\ncommit"},
+{t:"Show the routing table",cisco:"show ip route",arista:"show ip route",junos:"show route",forti:"get router info routing-table all",aruba:"show ip route",mikrotik:"/ip route print",paloalto:"show routing route"},
+{t:"Enable OSPF area 0 on 10.1.1.0/24",cisco:"router ospf 1\n network 10.1.1.0 0.0.0.255 area 0",arista:"router ospf 1\n network 10.1.1.0/24 area 0",junos:"set protocols ospf area 0.0.0.0 interface ge-0/0/0.0",forti:"config router ospf\n set router-id 1.1.1.1\n config area\n  edit 0.0.0.0\n next\n end\n config network\n  edit 1\n   set prefix 10.1.1.0 255.255.255.0\n   set area 0.0.0.0\nend",aruba:"router ospf 1\n area 0\ninterface 1/1/1\n ip ospf 1 area 0",mikrotik:"/routing ospf instance add name=default router-id=1.1.1.1\n/routing ospf area add name=backbone area-id=0.0.0.0\n/routing ospf interface-template add area=backbone networks=10.1.1.0/24\n(RouterOS v7 syntax)",paloalto:"set network virtual-router default protocol ospf router-id 1.1.1.1\nset network virtual-router default protocol ospf area 0.0.0.0 interface ethernet1/1\ncommit"},
+{t:"OSPF neighbors",cisco:"show ip ospf neighbor",arista:"show ip ospf neighbor",junos:"show ospf neighbor",forti:"get router info ospf neighbor",aruba:"show ip ospf neighbor",mikrotik:"/routing ospf neighbor print",paloalto:"show routing protocol ospf neighbor"},
 ]},
 {cat:"Security & Troubleshooting",rows:[
-{t:"Block one host with a filter/ACL",cisco:"ip access-list extended BLOCK\n deny ip host 10.9.9.9 any\n permit ip any any\ninterface g0/0\n ip access-group BLOCK in",arista:"ip access-list BLOCK\n deny ip host 10.9.9.9 any\n permit ip any any\ninterface Ethernet1\n ip access-group BLOCK in",junos:"set firewall family inet filter BLOCK term BAD from source-address 10.9.9.9/32\nset firewall family inet filter BLOCK term BAD then discard\nset firewall family inet filter BLOCK term OK then accept\nset interfaces ge-0/0/0 unit 0 family inet filter input BLOCK",forti:"config firewall policy\n edit 0\n  set srcintf lan\n  set dstintf wan1\n  set srcaddr BAD_HOST\n  set dstaddr all\n  set service ALL\n  set action deny\nend\n(FortiGate is default-deny between interfaces)",aruba:"access-list ip BLOCK\n deny ip 10.9.9.9 any\n permit any any any\ninterface 1/1/1\n apply access-list ip BLOCK in"},
-{t:"Enable SSH admin access",cisco:"ip domain-name lab.local\ncrypto key generate rsa modulus 2048\nusername admin secret Str0ngPass\nline vty 0 4\n login local\n transport input ssh",arista:"username admin secret Str0ngPass\nmanagement ssh\n(SSH is on by default in EOS)",junos:"set system services ssh\nset system login user admin class super-user authentication plain-text-password",forti:"config system interface\n edit port1\n  set allowaccess ssh https ping\nend\n(admins: config system admin)",aruba:"user admin group administrators password plaintext Str0ngPass\nssh server vrf default"},
-{t:"Ping / traceroute from the box",cisco:"ping 8.8.8.8\ntraceroute 8.8.8.8",arista:"ping 8.8.8.8\ntraceroute 8.8.8.8",junos:"ping 8.8.8.8\ntraceroute 8.8.8.8",forti:"execute ping 8.8.8.8\nexecute traceroute 8.8.8.8",aruba:"ping 8.8.8.8\ntraceroute 8.8.8.8"},
-{t:"Capture packets on-box",cisco:"monitor capture CAP interface g0/0 both\nmonitor capture CAP start\nmonitor capture CAP stop",arista:"bash tcpdump -i et1\n(EOS is Linux underneath)",junos:"monitor traffic interface ge-0/0/0",forti:"diagnose sniffer packet any 'host 8.8.8.8' 4",aruba:"— mirror the port (SPAN) to a capture PC:\nmirror session 1 destination interface 1/1/48"},
-{t:"View logs",cisco:"show logging",arista:"show logging",junos:"show log messages",forti:"execute log filter category traffic\nexecute log display",aruba:"show logging"},
+{t:"Block one host with a filter/ACL",cisco:"ip access-list extended BLOCK\n deny ip host 10.9.9.9 any\n permit ip any any\ninterface g0/0\n ip access-group BLOCK in",arista:"ip access-list BLOCK\n deny ip host 10.9.9.9 any\n permit ip any any\ninterface Ethernet1\n ip access-group BLOCK in",junos:"set firewall family inet filter BLOCK term BAD from source-address 10.9.9.9/32\nset firewall family inet filter BLOCK term BAD then discard\nset firewall family inet filter BLOCK term OK then accept\nset interfaces ge-0/0/0 unit 0 family inet filter input BLOCK",forti:"config firewall policy\n edit 0\n  set srcintf lan\n  set dstintf wan1\n  set srcaddr BAD_HOST\n  set dstaddr all\n  set service ALL\n  set action deny\nend\n(FortiGate is default-deny between interfaces)",aruba:"access-list ip BLOCK\n deny ip 10.9.9.9 any\n permit any any any\ninterface 1/1/1\n apply access-list ip BLOCK in",mikrotik:"/ip firewall filter add chain=forward src-address=10.9.9.9 action=drop",paloalto:"set rulebase security rules BLOCK-HOST from LAN to WAN source 10.9.9.9 destination any application any service any action deny\ncommit\n(default-deny between zones, like FortiOS — this is a Security Policy rule, not a standalone ACL)"},
+{t:"Enable SSH admin access",cisco:"ip domain-name lab.local\ncrypto key generate rsa modulus 2048\nusername admin secret Str0ngPass\nline vty 0 4\n login local\n transport input ssh",arista:"username admin secret Str0ngPass\nmanagement ssh\n(SSH is on by default in EOS)",junos:"set system services ssh\nset system login user admin class super-user authentication plain-text-password",forti:"config system interface\n edit port1\n  set allowaccess ssh https ping\nend\n(admins: config system admin)",aruba:"user admin group administrators password plaintext Str0ngPass\nssh server vrf default",mikrotik:"/ip service enable ssh\n/user add name=admin group=full password=Str0ngPass",paloalto:"set network profiles interface-management-profile MGMT ssh yes\nset network interface ethernet ethernet1/1 layer3 interface-management-profile MGMT\ncommit\n(SSH must be explicitly allowed via a management profile)"},
+{t:"Ping / traceroute from the box",cisco:"ping 8.8.8.8\ntraceroute 8.8.8.8",arista:"ping 8.8.8.8\ntraceroute 8.8.8.8",junos:"ping 8.8.8.8\ntraceroute 8.8.8.8",forti:"execute ping 8.8.8.8\nexecute traceroute 8.8.8.8",aruba:"ping 8.8.8.8\ntraceroute 8.8.8.8",mikrotik:"/ping 8.8.8.8\n/tool traceroute 8.8.8.8",paloalto:"ping host 8.8.8.8\ntraceroute host 8.8.8.8"},
+{t:"Capture packets on-box",cisco:"monitor capture CAP interface g0/0 both\nmonitor capture CAP start\nmonitor capture CAP stop",arista:"bash tcpdump -i et1\n(EOS is Linux underneath)",junos:"monitor traffic interface ge-0/0/0",forti:"diagnose sniffer packet any 'host 8.8.8.8' 4",aruba:"— mirror the port (SPAN) to a capture PC:\nmirror session 1 destination interface 1/1/48",mikrotik:"/tool sniffer quick interface=ether1",paloalto:"tcpdump filter \"host 8.8.8.8\"\ntcpdump start\ntcpdump stop\nview-pcap files"},
+{t:"View logs",cisco:"show logging",arista:"show logging",junos:"show log messages",forti:"execute log filter category traffic\nexecute log display",aruba:"show logging",mikrotik:"/log print",paloalto:"show log system\nshow log traffic"},
 ]},
 ];
 const XV_ROWS=XVEND.reduce((s,c)=>s+c.rows.length,0);
@@ -3059,13 +3147,312 @@ const XV_LABS=[
 {n:"Cisco DevNet Sandbox — free reservable real Cisco gear",u:"https://developer.cisco.com/site/sandbox/"},
 {n:"Palo Alto Beacon — free PAN-OS learning portal",u:"https://beacon.paloaltonetworks.com"},
 ];
-let xvVendor='arista',xvSrch='';
-function setXV(v){xvVendor=v;render();}
+let xvSrch='';
+let xvCols=new Set(XV_VENDORS.map(v=>v.id));
 function fXV(v){xvSrch=v;render();}
+function toggleXVCol(id){if(id==='cisco')return;if(xvCols.has(id))xvCols.delete(id);else xvCols.add(id);render();}
+function setXVPreset(ids){xvCols=new Set(ids);render();}
 
 
 let view='menu',cur=null,gSrch='',secTab='study',qAns={},qSub=false,curChap=null,jobRegion=0,itfTab='sysadmin';
 const SO=[3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,22,23,24,25,26,27,28,29,30,31,32,33,34,35,37];
+
+// ============================================================
+// TEXT-TO-SPEECH READER — "Read Aloud" for chapters
+// Uses the browser's built-in Web Speech API: no API key, no
+// server, works offline. Auto-picks the least-robotic voice
+// installed on the device and highlights each word as it's
+// spoken, following along as you read.
+// ============================================================
+let ttsState={open:false,mode:'text',loading:false,voiceURI:localStorage.getItem('tts_voice')||'',rate:parseFloat(localStorage.getItem('tts_rate')||'1'),fullText:'',fullWords:[],wordIdx:-1,fallbackTimer:null,usedBoundary:false};
+let ttsVoices=[];
+let ttsToken=0;
+// PDF read-aloud — lazy-loads PDF.js from CDN only when first used (no install,
+// nothing runs unless someone actually clicks "Read Chapter Aloud")
+let ttsPdfState={url:'',title:'',doc:null,pageNum:1,numPages:0,autoNext:localStorage.getItem('tts_pdf_autonext')==='1'};
+let ttsPdfJsPromise=null;
+const TTS_PDFJS_VER='3.11.174';
+
+function ttsEnsurePdfJs(){
+if(ttsPdfJsPromise)return ttsPdfJsPromise;
+ttsPdfJsPromise=new Promise((resolve,reject)=>{
+if(window.pdfjsLib){resolve();return;}
+const s=document.createElement('script');
+s.src=`https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${TTS_PDFJS_VER}/pdf.min.js`;
+s.onload=()=>{
+try{pdfjsLib.GlobalWorkerOptions.workerSrc=`https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${TTS_PDFJS_VER}/pdf.worker.min.js`;resolve();}
+catch(e){reject(e);}
+};
+s.onerror=()=>reject(new Error('Could not load the PDF reader library — check your internet connection and try again.'));
+document.head.appendChild(s);
+});
+return ttsPdfJsPromise;
+}
+
+function ttsInit(){
+if(!('speechSynthesis' in window))return;
+const load=()=>{ttsVoices=speechSynthesis.getVoices();};
+load();
+speechSynthesis.onvoiceschanged=load;
+}
+
+function ttsVoiceScore(v){
+const n=v.name.toLowerCase();let score=0;
+if(n.includes('premium'))score+=100;
+if(n.includes('enhanced'))score+=90;
+if(n.includes('neural'))score+=90;
+if(n.includes('natural'))score+=85;
+if(n.includes('online'))score+=70;
+if(n.includes('siri'))score+=80;
+if(/samantha|ava|zoe|allison|susan|nicky/.test(n))score+=40;
+if(n.includes('google'))score+=30;
+if(v.localService===false)score+=15;
+if(/microsoft (david|zira|mark)\b/.test(n))score-=20;
+if(v.lang&&v.lang.startsWith('en'))score+=10;
+if(v.default)score+=2;
+return score;
+}
+
+function ttsBestVoice(){
+if(!ttsVoices.length&&'speechSynthesis' in window)ttsVoices=speechSynthesis.getVoices();
+if(ttsState.voiceURI){const v=ttsVoices.find(v=>v.voiceURI===ttsState.voiceURI);if(v)return v;}
+const sorted=[...ttsVoices].sort((a,b)=>ttsVoiceScore(b)-ttsVoiceScore(a));
+return sorted[0]||null;
+}
+
+function ttsStripHtml(s){return (s||'').replace(/<[^>]*>/g,'').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>');}
+
+function ttsBuildText(title,points,cmds){
+const parts=[ttsStripHtml(title)+'.'];
+(points||[]).forEach(p=>parts.push(ttsStripHtml(p).replace(/→/g,' then ').replace(/·/g,',')+'.'));
+if(cmds&&cmds.length){parts.push('Key commands:');parts.push(cmds.map(c=>ttsStripHtml(c)).join(', ')+'.');}
+return parts.join(' ');
+}
+
+function ttsTokenize(text){
+const words=[];const re=/\S+/g;let m;
+while((m=re.exec(text))){words.push({s:m.index,e:m.index+m[0].length,text:m[0]});}
+return words;
+}
+
+function ttsWordsHtml(text,words){
+let h='';let last=0;
+words.forEach((w,i)=>{h+=text.slice(last,w.s);h+=`<span class="tts-w" id="tts-w-${i}">${w.text}</span>`;last=w.e;});
+h+=text.slice(last);
+return h;
+}
+
+function ttsOpen(secId){
+const sec=SEC[secId];if(!sec)return;
+ttsOpenCustom(`§${secId}: ${sec.title}`,sec.pts,sec.cmds);
+}
+
+function ttsOpenITTopic(catIdx,topicIdx){
+const t=IT_TOPICS[catIdx]&&IT_TOPICS[catIdx].topics[topicIdx];
+if(!t)return;
+ttsOpenCustom(t.t,t.pts);
+}
+
+function ttsOpenCustom(title,points,cmds){
+if(!('speechSynthesis' in window)){alert("This browser doesn't support built-in text-to-speech. Try Chrome, Edge, or Safari.");return;}
+speechSynthesis.cancel();
+if(ttsState.fallbackTimer){clearInterval(ttsState.fallbackTimer);ttsState.fallbackTimer=null;}
+ttsState.mode='text';
+ttsState.loading=false;
+ttsState.fullText=ttsBuildText(title,points,cmds);
+ttsState.fullWords=ttsTokenize(ttsState.fullText);
+ttsState.wordIdx=-1;
+ttsState.open=true;
+ttsRenderOverlay(title);
+ttsSpeakFrom(0);
+}
+
+// ---- PDF chapter reading (extracts real text from the PDF via PDF.js) ----
+async function ttsOpenPdf(pdfUrl,title){
+if(!('speechSynthesis' in window)){alert("This browser doesn't support built-in text-to-speech. Try Chrome, Edge, or Safari.");return;}
+speechSynthesis.cancel();
+if(ttsState.fallbackTimer){clearInterval(ttsState.fallbackTimer);ttsState.fallbackTimer=null;}
+ttsState.mode='pdf';
+ttsState.loading=true;
+ttsState.open=true;
+ttsPdfState={url:pdfUrl,title:title,doc:null,pageNum:1,numPages:0,autoNext:ttsPdfState.autoNext};
+ttsRenderOverlay(title);
+try{
+await ttsEnsurePdfJs();
+const doc=await pdfjsLib.getDocument(pdfUrl).promise;
+ttsPdfState.doc=doc;
+ttsPdfState.numPages=doc.numPages;
+await ttsLoadPdfPage(1);
+}catch(err){
+ttsState.loading=false;
+ttsState.fullText='';
+ttsState.fullWords=[];
+ttsRenderOverlay(title,'⚠️ Could not read this PDF: '+err.message);
+}
+}
+
+async function ttsLoadPdfPage(pageNum){
+if(!ttsPdfState.doc||pageNum<1||pageNum>ttsPdfState.numPages)return;
+speechSynthesis.cancel();
+if(ttsState.fallbackTimer){clearInterval(ttsState.fallbackTimer);ttsState.fallbackTimer=null;}
+ttsToken++; // invalidate any in-flight utterance from the previous page
+ttsState.loading=true;
+ttsPdfState.pageNum=pageNum;
+ttsRenderOverlay(ttsPdfState.title);
+try{
+const page=await ttsPdfState.doc.getPage(pageNum);
+const content=await page.getTextContent();
+let text=content.items.map(it=>it.str).join(' ').replace(/\s+/g,' ').trim();
+if(!text)text='This page has no extractable text — it may be a scanned image rather than real text.';
+ttsState.loading=false;
+ttsState.fullText=text;
+ttsState.fullWords=ttsTokenize(text);
+ttsState.wordIdx=-1;
+ttsRenderOverlay(ttsPdfState.title);
+ttsSpeakFrom(0);
+}catch(err){
+ttsState.loading=false;
+ttsRenderOverlay(ttsPdfState.title,'⚠️ Could not read page '+pageNum+': '+err.message);
+}
+}
+
+function ttsPdfPage(delta){
+ttsLoadPdfPage(ttsPdfState.pageNum+delta);
+}
+
+function ttsPdfToggleAutoNext(checked){
+ttsPdfState.autoNext=checked;
+localStorage.setItem('tts_pdf_autonext',checked?'1':'0');
+}
+
+function ttsRenderOverlay(title,errorMsg){
+let ov=document.getElementById('tts-overlay');
+if(!ov){ov=document.createElement('div');ov.id='tts-overlay';ov.className='tts-overlay';document.body.appendChild(ov);}
+const voices=ttsVoices.length?ttsVoices:('speechSynthesis' in window?speechSynthesis.getVoices():[]);
+const cur=ttsBestVoice();
+let voiceOpts='';
+[...voices].sort((a,b)=>ttsVoiceScore(b)-ttsVoiceScore(a)).forEach(v=>{
+voiceOpts+=`<option value="${v.voiceURI}" ${cur&&v.voiceURI===cur.voiceURI?'selected':''}>${v.name} (${v.lang})</option>`;
+});
+let bodyHtml;
+if(errorMsg)bodyHtml=`<p style="color:var(--no);text-align:center;padding:20px">${errorMsg}</p>`;
+else if(ttsState.loading)bodyHtml=`<p style="color:var(--mut);text-align:center;padding:20px">⏳ ${ttsState.mode==='pdf'?'Extracting text from the PDF…':'Loading…'}</p>`;
+else bodyHtml=ttsWordsHtml(ttsState.fullText,ttsState.fullWords);
+let pdfNav='';
+if(ttsState.mode==='pdf'){
+pdfNav=`<div class="tts-controls" style="border-top:1px solid var(--bor)">
+<button class="tts-stop" onclick="ttsPdfPage(-1)" ${ttsPdfState.pageNum<=1?'disabled':''} title="Previous page">◀</button>
+<span class="tts-label">Page ${ttsPdfState.pageNum} of ${ttsPdfState.numPages||'?'}</span>
+<button class="tts-stop" onclick="ttsPdfPage(1)" ${ttsPdfState.pageNum>=ttsPdfState.numPages?'disabled':''} title="Next page">▶</button>
+<label class="tts-label" style="display:flex;align-items:center;gap:4px;cursor:pointer"><input type="checkbox" ${ttsPdfState.autoNext?'checked':''} onchange="ttsPdfToggleAutoNext(this.checked)"> Auto-continue to next page</label>
+</div>`;
+}
+ov.innerHTML=`<div class="tts-panel">
+<div class="tts-head"><h4>🔊 ${title}</h4><button class="tts-close" onclick="ttsClose()">✕</button></div>
+<div class="tts-body" id="tts-body">${bodyHtml}</div>
+<div class="tts-hint">${ttsState.mode==='pdf'?'Text extracted directly from the PDF page-by-page — image-only/scanned pages won\'t have readable text.':'Auto-picked the best-sounding voice installed on this device.'} On Mac, for a noticeably more natural voice: System Settings → Accessibility → Spoken Content → System Voice → Manage Voices → download an "Enhanced" or "Premium" voice, then pick it below.</div>
+<div class="tts-controls">
+<button class="tts-play" id="tts-play-btn" onclick="ttsPlayPause()">⏸</button>
+<button class="tts-stop" onclick="ttsClose()" title="Stop">⏹</button>
+<span class="tts-label">Voice</span>
+<select class="tts-select" onchange="ttsChangeVoice(this.value)">${voiceOpts}</select>
+<span class="tts-label">Speed</span>
+<input class="tts-rate" type="range" min="0.6" max="1.8" step="0.1" value="${ttsState.rate}" oninput="ttsChangeRate(this.value)">
+<span class="tts-label" id="tts-rate-lbl">${ttsState.rate}x</span>
+</div>
+${pdfNav}
+</div>`;
+ov.classList.add('open');
+}
+
+function ttsSpeakFrom(startWordIdx){
+speechSynthesis.cancel();
+if(ttsState.fallbackTimer){clearInterval(ttsState.fallbackTimer);ttsState.fallbackTimer=null;}
+ttsToken++;
+const myToken=ttsToken;
+const startChar=startWordIdx>0&&ttsState.fullWords[startWordIdx]?ttsState.fullWords[startWordIdx].s:0;
+const remaining=ttsState.fullText.slice(startChar);
+const curWords=ttsTokenize(remaining);
+const curOffset=startWordIdx;
+ttsState.usedBoundary=false;
+const u=new SpeechSynthesisUtterance(remaining);
+const v=ttsBestVoice();if(v)u.voice=v;
+u.rate=ttsState.rate;
+u.onboundary=(e)=>{
+if(myToken!==ttsToken)return;
+if(e.name&&e.name!=='word')return;
+ttsState.usedBoundary=true;
+if(ttsState.fallbackTimer){clearInterval(ttsState.fallbackTimer);ttsState.fallbackTimer=null;}
+const local=curWords.findIndex(w=>e.charIndex>=w.s&&e.charIndex<w.e);
+ttsHighlightWordIdx(curOffset+(local===-1?0:local));
+};
+u.onstart=()=>{setTimeout(()=>{if(myToken===ttsToken&&!ttsState.usedBoundary&&ttsState.open)ttsStartFallbackTimer();},900);};
+u.onend=()=>{
+if(myToken!==ttsToken||!ttsState.open)return;
+if(ttsState.mode==='pdf'&&ttsPdfState.autoNext&&ttsPdfState.pageNum<ttsPdfState.numPages)ttsPdfPage(1);
+else ttsClose();
+};
+u.onerror=()=>{if(myToken===ttsToken&&ttsState.open)ttsClose();};
+speechSynthesis.speak(u);
+}
+
+function ttsStartFallbackTimer(){
+const wpm=165*ttsState.rate;const msPerWord=60000/wpm;
+ttsState.fallbackTimer=setInterval(()=>{
+const next=ttsState.wordIdx+1;
+if(next>=ttsState.fullWords.length){clearInterval(ttsState.fallbackTimer);ttsState.fallbackTimer=null;return;}
+ttsHighlightWordIdx(next);
+},msPerWord);
+}
+
+function ttsHighlightWordIdx(idx){
+if(idx===ttsState.wordIdx)return;
+const prev=document.getElementById('tts-w-'+ttsState.wordIdx);if(prev)prev.classList.remove('active');
+const el=document.getElementById('tts-w-'+idx);
+if(el){el.classList.add('active');el.scrollIntoView({block:'center',behavior:'smooth'});}
+ttsState.wordIdx=idx;
+}
+
+function ttsPlayPause(){
+if(!('speechSynthesis' in window))return;
+const btn=document.getElementById('tts-play-btn');
+if(speechSynthesis.speaking&&!speechSynthesis.paused){
+speechSynthesis.pause();
+if(ttsState.fallbackTimer){clearInterval(ttsState.fallbackTimer);ttsState.fallbackTimer=null;}
+if(btn)btn.textContent='▶';
+}else if(speechSynthesis.paused){
+speechSynthesis.resume();
+if(!ttsState.usedBoundary)ttsStartFallbackTimer();
+if(btn)btn.textContent='⏸';
+}
+}
+
+function ttsChangeVoice(uri){
+ttsState.voiceURI=uri;localStorage.setItem('tts_voice',uri);
+ttsRestartFromCurrentWord();
+}
+
+function ttsChangeRate(val){
+ttsState.rate=parseFloat(val);localStorage.setItem('tts_rate',val);
+const lbl=document.getElementById('tts-rate-lbl');if(lbl)lbl.textContent=val+'x';
+ttsRestartFromCurrentWord();
+}
+
+function ttsRestartFromCurrentWord(){
+if(!ttsState.open)return;
+const btn=document.getElementById('tts-play-btn');if(btn)btn.textContent='⏸';
+ttsSpeakFrom(Math.max(0,ttsState.wordIdx));
+}
+
+function ttsClose(){
+ttsState.open=false;
+ttsState.loading=false;
+if('speechSynthesis' in window)speechSynthesis.cancel();
+if(ttsState.fallbackTimer){clearInterval(ttsState.fallbackTimer);ttsState.fallbackTimer=null;}
+const ov=document.getElementById('tts-overlay');if(ov)ov.classList.remove('open');
+ttsState.wordIdx=-1;
+ttsPdfState.doc=null;
+}
 
 function render(){const a=document.getElementById('app');
 if(view==='menu')renderMenu(a);else if(view==='section')renderSection(a);else if(view==='glossary')renderGlossary(a);
@@ -3138,7 +3525,8 @@ EXAM_BP.forEach(d=>d.topics.forEach(t=>{if(t.secs.includes(id))examTopics.push({
 
 let h=`<button class="bb" onclick="goMenu()">← All Sections</button>`;
 h+=`<div class="sh"><h2>§${id}: ${sec.title} <span class="lt ${sec.lc}">${sec.layer}</span></h2>
-<p>${sec.pts.length} tips · ${vocab.length} vocab · ${qc} quiz · ${sec.cmds.length} cmds</p></div>`;
+<p>${sec.pts.length} tips · ${vocab.length} vocab · ${qc} quiz · ${sec.cmds.length} cmds</p>
+<button class="tts-btn" style="margin-top:6px" onclick="ttsOpen(${id})">🔊 Read Aloud</button></div>`;
 
 const labPg=LAB_PAGES[id];
 h+=`<div class="rb">`;
@@ -3255,8 +3643,13 @@ else if(f.startsWith('new_s')){label=f.replace('.pdf','').replace(/^new_s\d+_/,'
 else{label=f.replace('.pdf','').replace(/v[12]_/,'').replace(/_/g,' ');}
 h+=`<span class="ch-btn ${curChap===f?'active':''}" onclick="loadChap('${f}')">${tagHtml}${label}</span> `;});h+=`</div>`;
 if(curChap){const pdfUrl='chapters/'+curChap;
+let curLabel;
+if(curChap.startsWith('lowe_'))curLabel=curChap.replace('.pdf','').replace(/^lowe_bk\d_ch\d+_/,'').replace(/_/g,' ');
+else if(curChap.startsWith('new_s'))curLabel=curChap.replace('.pdf','').replace(/^new_s\d+_/,'').replace(/_/g,' ');
+else curLabel=curChap.replace('.pdf','').replace(/v[12]_/,'').replace(/_/g,' ');
 h+=`<div class="pdf-controls"><button class="pdf-ctrl-btn" onclick="window.open('${pdfUrl}','_blank')">⬛ Fullscreen</button>
-<a href="${pdfUrl}" download class="pdf-ctrl-btn" style="text-decoration:none">⬇ Download</a></div>
+<a href="${pdfUrl}" download class="pdf-ctrl-btn" style="text-decoration:none">⬇ Download</a>
+<button class="pdf-ctrl-btn tts-btn" onclick="ttsOpenPdf('${pdfUrl}','${curLabel.replace(/'/g,"\\'")}')">🔊 Read Chapter Aloud</button></div>
 <div class="pdf-wrapper"><object data="${pdfUrl}" type="application/pdf" width="100%" height="100%">
 <embed src="${pdfUrl}" type="application/pdf" width="100%" height="100%"><p style="color:var(--mut);padding:25px;text-align:center"><a href="${pdfUrl}" target="_blank" style="color:var(--ac)">Open Chapter →</a></p></embed></object></div>`;}
 else{h+=`<p style="color:var(--mut);text-align:center;padding:25px">Click a chapter above to load it</p>`;}
@@ -3362,10 +3755,17 @@ const IT_TOPICS=[
 {t:"Active Directory Domain Services",pts:["Domains, trees, forests, OUs — the logical structure that organizes users/computers/groups","Group Policy Objects (GPOs) push config to users/computers without touching each machine manually","FSMO roles (Schema Master, Domain Naming, RID, PDC Emulator, Infrastructure Master) — single points of responsibility in a domain","DNS is mandatory for AD — domain controllers register themselves in DNS and clients use it to find a DC"]},
 {t:"Windows Server File/Print/DHCP/DNS roles",pts:["A 'role' in Windows Server is a major function (DHCP, DNS, File Server, AD DS) installed via Server Manager / PowerShell","Windows DHCP/DNS server roles mirror the Cisco concepts from §23 but with a GUI/PowerShell management layer instead of CLI","File server shares + NTFS permissions are layered: share permission AND NTFS permission both apply, most-restrictive wins"]},
 {t:"PowerShell basics for IT generalists",pts:["Get-/Set-/New-/Remove- verb-noun pattern is consistent across nearly all PowerShell cmdlets","Get-ADUser, Get-ADComputer, Get-NetIPConfiguration are everyday helpdesk/sysadmin commands","Piping (|) chains cmdlets together, e.g., Get-Service | Where-Object {$_.Status -eq 'Running'}"]},
+{t:"Installing & configuring Windows Server 2025",src:"Lowe Bk6 Ch1-2",pts:["Server Manager (GUI) and the Add Roles and Features wizard are how most Windows Server roles get installed — the same actions are scriptable via PowerShell's Install-WindowsFeature for repeatable deployments","Server Core (no GUI shell) trims attack surface and resource use versus Desktop Experience — manage it remotely via PowerShell/Windows Admin Center rather than logging in locally","The built-in Administrator account should be renamed/secured immediately after install — it's the first account any automated attack tooling tries"]},
+{t:"Managing user accounts and groups",src:"Lowe Bk6 Ch4",pts:["Local accounts live only on one machine; domain accounts (created in AD) are recognized network-wide — almost all real environments use domain accounts for anything beyond a single standalone server","Group scope (Domain Local, Global, Universal) controls where a group can be used — the classic guidance is 'accounts into global groups, global groups into domain local groups, domain local groups get permissions' (A-G-DL-P)","Roaming profiles follow a user between machines; logon scripts (assigned per-user or via GPO) run automated setup — both are being displaced by Entra ID + cloud-managed devices in modern shops but still show up constantly in on-prem environments"]},
+{t:"Group Policy in practice",src:"Lowe Bk6 Ch6",pts:["A Group Policy Object (GPO) is a named bundle of settings; it does nothing until linked to a site, domain, or OU — linking is a separate step from creating","GPOs apply in order — Local → Site → Domain → OU (LSDOU) — with the last-applied (most specific) setting winning on conflict, unless a GPO is explicitly enforced","Security filtering and WMI filtering let you scope a GPO to specific users/computers/groups instead of an entire OU, without restructuring your OU hierarchy"]},
+{t:"Windows command line & PowerShell for admins",src:"Lowe Bk6 Ch7-8",pts:["Net commands (net user, net localgroup, net share, net use) predate PowerShell and are still the fastest path for one-off account/share/mapping tasks on a box you're already logged into","Batch files chain commands with wildcards, redirection (>, >>), and environment variables (%VARNAME%) — still common for legacy logon scripts and scheduled tasks","PowerShell's provider model lets the same cmdlets (Get-ChildItem, Remove-Item) navigate not just the filesystem but the registry, certificate store, and AD — one syntax, many 'drives'"]},
 ]},
 {cat:"Microsoft 365 / Cloud Identity",icon:"☁️",topics:[
 {t:"Entra ID (formerly Azure AD)",pts:["Cloud-based identity service; can sync with on-prem AD via Entra Connect (formerly Azure AD Connect) for hybrid environments","Conditional Access policies gate sign-in based on device, location, risk level — a real interview topic for security-minded IT roles","MFA (multi-factor authentication) enforcement is now close to a baseline expectation in any modern M365 tenant"]},
 {t:"Exchange Online & Teams basics",pts:["Mailbox types: user, shared, resource (room/equipment) — common helpdesk ticket category","Distribution lists vs. Microsoft 365 Groups vs. Teams — overlapping but distinct collaboration objects","Most M365 admin tasks are doable via the Microsoft 365 admin center GUI or PowerShell (Exchange Online Management module)"]},
+{t:"Tenant setup & user lifecycle",src:"Lowe Bk7 Ch1",pts:["An M365 tenant is the dedicated cloud instance tied to your organization's domain — created once, then licensed per user via a subscription plan","Creating a user and immediately setting a temporary password (forcing a change at next sign-in) is the standard onboarding pattern; disabling (not deleting) an account is the standard offboarding pattern so mailbox/OneDrive data survives","Password resets and account disable/enable are among the highest-volume routine admin tasks in any M365 tenant — usually delegated to helpdesk via a scoped admin role rather than Global Admin"]},
+{t:"Exchange Online administration",src:"Lowe Bk7 Ch2",pts:["The Exchange Admin Center manages mailboxes, but most day-to-day mailbox work (aliases, delegation, forwarders) can also be done via the Exchange Online PowerShell module for bulk changes","A shared mailbox has no password/license of its own — it's accessed through delegated permissions on someone's own licensed account, which is why 'convert a mailbox to shared' is a common ticket when someone leaves","Mail flow rules and mailbox permissions are two different control points — a delegate having Full Access doesn't automatically grant Send As, and vice versa"]},
+{t:"Administering Microsoft Teams",src:"Lowe Bk7 Ch3",pts:["Every Team is backed by a Microsoft 365 Group, which in turn provisions a SharePoint site (files) and can provision a shared mailbox/calendar — deleting the Team deletes all of it","The Teams Admin Center governs org-wide policies (meeting policies, messaging policies, external access) separately from what any individual Team owner can configure inside their own Team","OneDrive for Business (personal files) and SharePoint (team/site files) are the same underlying platform — Teams' 'Files' tab is literally a view into the Team's SharePoint document library"]},
 ]},
 {cat:"Virtualization & Storage",icon:"🖥️",topics:[
 {t:"Hypervisors: VMware, Hyper-V, Proxmox",pts:["Type 1 hypervisor runs directly on hardware (ESXi, Hyper-V Server); Type 2 runs as an application on a host OS (VirtualBox, VMware Workstation)","vMotion / Live Migration move a running VM between physical hosts with no downtime — a key enterprise feature interviewers ask about","Snapshots are NOT backups — they're a point-in-time diff that depends on the original disk; losing the base disk loses the snapshot too"]},
@@ -3375,10 +3775,50 @@ const IT_TOPICS=[
 {cat:"Linux Fundamentals",icon:"🐧",topics:[
 {t:"Core CLI and filesystem",pts:["Filesystem Hierarchy Standard: /etc (config), /var (variable/log data), /home (user dirs), /usr (programs)","chmod/chown manage permission bits and ownership; a permission string like rwxr-xr-- breaks down as owner/group/other","systemctl start/stop/enable/status manages services on most modern distros (systemd-based)"]},
 {t:"Networking from a Linux box",pts:["ip addr / ip route (modern) replaced ifconfig / route (legacy) on most current distros","/etc/resolv.conf (or systemd-resolved) configures DNS resolution locally","SSH key-based auth (~/.ssh/authorized_keys) is the standard for passwordless, more secure remote access than passwords"]},
+{t:"Installing and administering a Linux server",src:"Lowe Bk8 Ch1-2",pts:["Choosing a distribution matters for support/tooling fit — Fedora/RHEL-family uses rpm/dnf, Debian/Ubuntu-family uses deb/apt; the concepts transfer but exact commands don't","sudo (run one command with elevated privileges, logged per-user) is the modern replacement for logging in directly as root — root login is disabled by default on most current distros for exactly this auditability reason","vi/vim's modal editing (Normal/Insert/Command mode) is the one editor guaranteed to exist on any Linux box you SSH into — worth the learning-curve investment even if you prefer nano day-to-day"]},
+{t:"Linux network configuration & services",src:"Lowe Bk8 Ch3-4",pts:["Modern distros store interface config in NetworkManager/netplan-style files rather than hand-edited ifcfg scripts, though the legacy files (and ifconfig) still appear in older or minimal installs","/etc/hosts (static overrides) and /etc/resolv.conf (DNS resolver) are checked in that order for name resolution on a Linux box — the same NSS-driven order concept as Windows' hosts file + DNS client","Running DHCP (isc-dhcp-server / kea) or DNS (BIND, via named.conf and zone files) on Linux uses the exact same protocol concepts as the Windows DHCP/DNS roles — only the config file syntax changes"]},
+{t:"Essential Linux commands for network techs",src:"Lowe Bk8 Ch5",pts:["File/directory commands (ls, cd, cp, mv, rm, mkdir) plus redirection/piping are the daily-driver toolkit — muscle memory here is what separates 'can SSH in and function' from 'has to Google every command'","User/group administration (useradd, usermod, passwd, groupadd) and ownership/permissions (chown, chgrp, chmod) are the Linux-side equivalent of Windows' user accounts + NTFS permissions","Networking commands (hostname, ifconfig/ip, netstat/ss, ping, traceroute) map almost one-to-one to the Windows TCP/IP tools already covered in your CCNA background reading — same diagnostic logic, different syntax"]},
+]},
+{cat:"Client & Peripheral Networking",icon:"🖨️",src:"Lowe Bk4 Ch1,3-5",topics:[
+{t:"Cabling and physical installation practicalities",pts:["Cable category choice (Cat5e/Cat6/Cat6a) should match your longest run and future bandwidth needs, not just today's — re-pulling cable is the expensive mistake to avoid","Plenum-rated cable is required by code in air-handling spaces (above drop ceilings, etc.) — non-plenum jacket burns and releases toxic fumes when heated by HVAC airflow","Solid-core cable belongs in fixed in-wall runs (better signal, less flexible); stranded cable belongs in patch cables (more flexible, handles repeated bending) — mixing them up shortens cable life"]},
+{t:"Configuring Windows and Mac clients on the network",pts:["Joining a Windows PC or a Mac to an AD domain moves authentication from the local SAM/local accounts to the domain controller — same underlying concept, different join wizard per OS","Windows network connection profiles (Domain/Private/Public) and Mac's simpler network location profiles both exist to auto-adjust firewall/sharing behavior based on where the device is connected","Connecting a Mac to an SMB share uses the same protocol Windows file sharing does — 'Connect to Server' with an smb:// path is the Mac-side equivalent of mapping a network drive"]},
+{t:"Network printers",pts:["A network printer gets its own IP (static or DHCP-reserved) and is added to each client independently, or centrally via a Windows print server that clients connect to instead of managing drivers themselves","Most modern network printers expose a web management interface (via their IP in a browser) for supply levels, network config, and firmware — worth knowing before opening a support ticket for something self-serviceable","Print server centralization means one driver update / one queue to manage instead of N — the tradeoff is the print server becoming a single point of failure for all printing"]},
 ]},
 {cat:"Cloud Platforms (Azure/AWS basics)",icon:"🌩️",topics:[
 {t:"Core compute/network/storage concepts",pts:["VPC (AWS) / VNet (Azure) is your private network space in the cloud — subnets, route tables, and security groups/NSGs live inside it","Security Groups (AWS, stateful, attached to instances) vs NACLs (stateless, attached to subnets) — a classic interview distinction","IAM (Identity and Access Management) governs who can do what — least-privilege is the expected default posture, not an afterthought"]},
 {t:"Why cloud networking still needs your CCNA knowledge",pts:["VPNs/Direct Connect/ExpressRoute extend on-prem routing concepts (BGP is common for cloud interconnects) into the cloud","Subnetting, routing tables, and ACL logic transfer almost directly from on-prem CCNA knowledge into cloud VPC/VNet design","Load balancers (ALB/NLB, Azure Load Balancer) operate on concepts adjacent to what you already know about L4 vs L7 traffic handling"]},
+]},
+{cat:"Virtual Private Networks (VPNs)",icon:"🔒",src:"Lowe Bk4 Ch6",topics:[
+{t:"VPN fundamentals: tunneling, encryption, and site-to-site vs. remote-access",pts:["A VPN builds an encrypted tunnel across a public network so two private networks (site-to-site) or a remote user and a private network (remote-access/client) can communicate as if directly connected","Tunneling protocols encapsulate the original packet inside a new one; IPsec (network layer) and SSL/TLS-based VPNs (application layer, e.g. OpenVPN, AnyConnect) are the two dominant approaches in real deployments","Encryption (confidentiality) and authentication (integrity/origin) are separate jobs inside a VPN — IPsec handles both via ESP/AH plus IKE for key exchange"]},
+{t:"VPN security considerations",pts:["A VPN extends your trusted network's perimeter to wherever the remote endpoint sits — a compromised remote laptop is now effectively inside the LAN","Split tunneling (only VPN-bound traffic uses the tunnel, everything else goes direct to the internet) trades security for performance/bandwidth — many orgs disable it by policy","Strong endpoint posture checks (patched OS, AV running, disk encryption) before granting a VPN session reduce the 'sick device walks into a healthy network' risk"]},
+{t:"VPN servers, clients, and where this connects to your CCNA labs",pts:["A VPN server/concentrator terminates tunnels and typically integrates with the org's existing authentication (RADIUS/AD) rather than maintaining its own separate user list","Cisco's site-to-site IPsec VPN configuration (crypto map, ISAKMP/IKE policy, transform-set) is the CLI expression of the exact concepts covered here — this topic is the 'why', the CCNA labs are the 'how'","Client software (Cisco AnyConnect, native OS clients, GlobalProtect for Palo Alto) handles the remote-access side; site-to-site is configured entirely on the two gateway devices with no end-user client involved"]},
+]},
+{cat:"Network Management & Day-2 Operations",icon:"🗂️",src:"Lowe Bk9",topics:[
+{t:"The network administrator's actual job",pts:["Routine chores — user account upkeep, patching OS/software, monitoring backups, reviewing logs — consume more real time than any single dramatic outage","Software tools for network admins span monitoring (PRTG, Nagios, Zabbix), remote management, and inventory/asset tracking — picking the right tool for the shop's size matters more than picking the 'best' one","Certifications (CompTIA Network+/Security+, Microsoft, Cisco) map to different career lanes — Cisco certs signal infrastructure depth, Microsoft signals Windows/AD/M365 depth, CompTIA is vendor-neutral foundation"]},
+{t:"Managing systems remotely",pts:["Remote Desktop Connection (RDP) is the default way to administer Windows servers/workstations without physical access — must be explicitly enabled and firewalled appropriately","RDP display/local-resources/experience settings trade visual fidelity and clipboard/drive redirection against bandwidth — tune down for slow WAN links","Remote Assistance (an invited, screen-shared help session) is a different tool from RDP (full remote control/logon) — use Remote Assistance for guided user help, RDP for admin work on a server"]},
+{t:"IT asset management",pts:["Asset tracking isn't paperwork for its own sake — you can't patch, budget for refresh cycles, or respond to an incident on hardware/software you don't know you have","A minimum asset record should include an asset tag/number, location, owner, purchase/warranty date, and installed software — barcode or QR labels make physical audits fast","Dedicated asset-tracking tools (or even a well-maintained spreadsheet/CMDB) beat institutional memory the moment a team has more than one admin"]},
+{t:"Structured troubleshooting for end-user problems",pts:["Bad things happen to good computers for boring reasons most of the time — check the obvious (cable, power, login credentials) before chasing exotic causes","The escalation ladder for a stuck computer: restart the client → boot into Safe Mode → System Restore → restart the affected service → restart the server providing that service — cheapest fix first","Event Viewer logs, plus documenting what broke and how it was fixed, turn a one-time fix into a searchable answer the next time the same symptom appears"]},
+]},
+{cat:"Cybersecurity for Practitioners",icon:"🛡️",src:"Lowe Bk10",topics:[
+{t:"Securing your users (identity & the human firewall)",pts:["Authentication proves who you are (password, biometric, token); authorization determines what you're allowed to do once authenticated — conflating the two is a common interview trip-up","MFA (something you know + something you have/are) blocks the overwhelming majority of credential-stuffing and phishing-driven account takeovers even when the password itself leaks","The 'human firewall' — security policy, recurring training, and simulated phish tests — matters as much as any technical control, since most breaches start with a person, not an exploit"]},
+{t:"Firewalls and virus protection",pts:["Firewall types by inspection depth: packet filtering (header rules only) → stateful packet inspection (tracks connection state) → circuit-level gateway (session-layer) → application gateway/proxy (full payload awareness) — each layer trades performance for scrutiny","Windows Defender Firewall can be centrally configured via Group Policy across a whole domain instead of touching every machine one at a time","Antivirus is necessary but insufficient — 'safe computing' habits (patching, least-privilege accounts, not running as admin day-to-day) prevent classes of infection AV signatures haven't caught up to yet"]},
+{t:"Spam and email-borne threats",pts:["Spam filtering happens at three possible layers — on-premises appliance/software, a dedicated antispam appliance, or a cloud-based filtering service in front of the mailbox — cloud-based is now the default for most orgs","Spam filters typically combine sender reputation, content/heuristic analysis, and sometimes greylisting to score messages before they reach the inbox","Minimizing spam is part technical control, part hygiene: not exposing addresses publicly, using aliases for sign-ups, and reporting/training reduce volume alongside the filter itself"]},
+{t:"Disaster recovery & business continuity planning",pts:["Disasters aren't only fires and floods — deliberate acts (sabotage, ransomware), service disruptions (ISP/power outage), and plain equipment failure all belong on the same risk register","A Business Continuity Plan (BCP) answers 'how do we keep operating' while Disaster Recovery (DR) answers 'how do we get systems back' — related but distinct documents with different audiences","A fire drill for IT — actually testing the DR plan on a schedule — is the only way to find out a backup doesn't restore before you need it to"]},
+{t:"Cybersecurity incident response planning",pts:["A written incident response plan defines a response team and a lifecycle: identify → triage → contain → eradicate → restore → close — improvising this during a live incident costs time you don't have","Communication planning is a first-class part of IR — internal updates, executive/leadership briefing, and (when required) external/customer or regulatory notification each need a pre-agreed owner and template","Closing an incident means documentation and a lessons-learned review, not just restoring service — skipping this step guarantees the same incident recurs"]},
+{t:"Penetration testing & ethical hacking",pts:["A penetration test is an authorized, scoped, boundary-limited simulated attack — scope and rules of engagement (what's off-limits, what counts as success) are agreed upon in writing before any testing starts","The 'Red Team' plays attacker to test detection/response (the 'Blue Team'); results feed back into the same hardening and IR-plan work covered above, closing the loop","Kali Linux is the standard pentesting distro — pre-loaded with reconnaissance, exploitation, and reporting tools — but the tools are only as good as the scoping and permission behind their use"]},
+]},
+{cat:"Infrastructure Planning: Servers, Virtualization, Storage, Backup & HCI",icon:"🏢",src:"Lowe Bk3 Ch3-7",topics:[
+{t:"Server & virtualization architecture planning",pts:["Deciding how many/which servers you need starts from roles (domain controller, DHCP, mail, file, print, web, database, application, backup, deployment, update) — not every role needs its own physical box","A hypervisor virtualizes hardware so multiple VMs share one physical host; virtual disks and virtual networking recreate storage and switching entirely in software on top of it","Virtualization's real benefit for planning purposes is consolidation plus live migration — fewer physical boxes to power/cool/patch, and workloads that can move off a host without downtime for maintenance"]},
+{t:"Storage architecture: disks, interfaces, RAID, attachment types",pts:["HDDs (spinning, cheap per GB) vs. SSDs (fast, no moving parts) — SATA and SAS are the interfaces that connect them, with SAS offering better performance/reliability for server workloads","RAID 10 (striped mirrors) for performance+redundancy, RAID 5 (striping with single parity) for capacity efficiency, RAID 6 (dual parity) when you need to survive two simultaneous disk failures","Attachment type sets the blast radius: DAS (direct-attached, one server only) vs. SAN (block storage over the network, shared) vs. NAS (file storage over the network, shared) — SAN/NAS enable shared storage for clustering and live migration"]},
+{t:"Backup architecture",pts:["Full / incremental / differential backups trade restore speed against backup time and storage consumed — differential restores need only the last full plus last differential; incremental restores need the full plus every incremental since","Tape (LTO) is still relevant for cheap, durable, offline (air-gapped) long-term retention — the 'air gap' is exactly what makes it ransomware-resistant compared to always-online disk targets","Image-based backups (the whole VM/disk) restore faster to dissimilar hardware than file-based backups, which is why virtualization pushed most shops toward image-based as the default"]},
+{t:"Hyperconverged infrastructure (HCI)",pts:["HCI collapses compute, storage, and networking into one clustered software-defined platform instead of separate server/SAN/switch silos managed independently","Deduplication (storing one copy of repeated data blocks, referenced multiple times) is what makes HCI storage-efficient — especially valuable across many near-identical VM disks","HCI trades some of the granular tuning control of build-your-own infrastructure for dramatically simpler day-2 management — a real tradeoff to weigh, not a strictly-better replacement"]},
+]},
+{cat:"Hands-On Virtualization & Cloud Platforms",icon:"☁️",src:"Lowe Bk5",topics:[
+{t:"Hyper-V",pts:["Hyper-V is Microsoft's Type 1 hypervisor, built into Windows Server (and available as a free standalone Hyper-V Server) — enable it as a Windows feature before anything else works","A Virtual Switch is Hyper-V's software-defined network — External (bridges to a physical NIC), Internal (VM-to-host only), or Private (VM-to-VM only, isolated from the host)","Creating a VM follows the same sequence every hypervisor uses: build a virtual disk (VHD/VHDX) → create the VM shell → attach the disk and virtual switch → install the OS"]},
+{t:"VMware (Workstation Pro / vSphere)",pts:["vSphere is VMware's enterprise/datacenter platform (ESXi hosts plus vCenter management); Workstation Pro is the free-tier, single-host desktop product for labbing","VMware Tools (guest additions) must be installed inside each VM for proper drivers, clock sync, and clean shutdown signaling from the host","VMware popularized much of the vocabulary the rest of the industry now uses — vMotion (live migration), snapshots, and vSwitches all have direct Hyper-V/KVM equivalents under different names"]},
+{t:"Azure fundamentals",pts:["The Azure Portal is the GUI control plane for everything — VMs, VNets, storage accounts, and IAM roles are all created and managed from (or via CLI/ARM templates driving) the same console","Creating and connecting to an Azure VM mirrors on-prem virtualization conceptually: pick a size (vCPU/RAM tier), attach it to a VNet/subnet, then RDP or SSH in — the 'hypervisor' is just abstracted away as a service","Managing a cloud VM (resize, deallocate to stop billing, snapshot as a managed disk image) has direct cost implications on-prem virtualization never had — deallocating vs. just powering off matters for your bill"]},
+{t:"Amazon Web Services (AWS) fundamentals",pts:["The AWS Console is the equivalent control plane to the Azure Portal; EC2 is AWS's VM service, parallel to Azure Virtual Machines","Creating a Windows EC2 instance and connecting to it (via RDP, using an admin password retrieved with a key pair) is the AWS-flavored version of the same VM lifecycle covered for Azure and on-prem hypervisors","Managing an EC2 instance (stop vs. terminate, security groups controlling inbound/outbound access) reinforces the same VPC/security-group concepts already covered in the Cloud Platforms topic above"]},
+{t:"Desktop virtualization (VDI)",pts:["Desktop virtualization runs users' desktop OS/apps centrally (in the datacenter or cloud) and streams the display to a thin client or any device — the opposite direction from server virtualization but the same underlying hypervisor tech","VMware Horizon View and Citrix (XenApp / Virtual Apps and Desktops) are the two long-standing enterprise VDI platforms, differing mainly in protocol (Blast/PCoIP vs. ICA/HDX) and app-publishing model","VDI centralizes patching/security (one golden image instead of hundreds of physical desktops) at the cost of needing reliable, low-latency network connectivity for every user, every session"]},
 ]},
 ];
 const IT_TOPICS_COUNT=IT_TOPICS.reduce((s,c)=>s+c.topics.length,0);
@@ -3397,9 +3837,9 @@ h+=`<div class="tab-bar">
 // ---- SYSADMIN TAB ----
 h+=`<div class="tab-content ${itfTab==='sysadmin'?'active':''}">`;
 h+=`<p style="font-size:.72rem;color:var(--mut);margin-bottom:10px;line-height:1.4">This is the "Lowe's For Dummies" layer — the general IT knowledge that real helpdesk/sysadmin/network-engineer jobs assume you already have, even though it's not on the CCNA exam.</p>`;
-IT_TOPICS.forEach(cat=>{
-h+=`<div class="cs"><h3>${cat.icon} ${cat.cat}</h3>`;
-cat.topics.forEach(t=>{h+=`<div style="margin-bottom:8px"><div style="font-size:.76rem;font-weight:700;color:var(--ac);margin-bottom:3px">${t.t}</div><ul style="margin:0">`;
+IT_TOPICS.forEach((cat,ci)=>{
+h+=`<div class="cs"><h3>${cat.icon} ${cat.cat}${cat.src?` <span class="new-badge">NEW — ${cat.src}</span>`:''}</h3>`;
+cat.topics.forEach((t,ti)=>{h+=`<div style="margin-bottom:8px"><div style="font-size:.76rem;font-weight:700;color:var(--ac);margin-bottom:3px">${t.t}${t.src?` <span class="new-badge">NEW — ${t.src}</span>`:''} <button class="tts-btn" style="padding:1px 6px;font-size:.54rem;margin-left:2px;vertical-align:middle" onclick="ttsOpenITTopic(${ci},${ti})" title="Read this topic aloud">🔊</button></div><ul style="margin:0">`;
 t.pts.forEach(p=>h+=`<li style="font-size:.7rem">${p}</li>`);h+=`</ul></div>`;});
 h+=`</div>`;});
 h+=`<div class="cs" style="border-color:#3d3500"><h3 style="color:var(--gold)">📙 Lowe Track — every chapter is now a full hub section</h3>`;
@@ -3416,6 +3856,7 @@ const vendorSecs=Object.keys(VENDOR_FILES).map(Number).sort((x,y)=>x-y);
 vendorSecs.forEach(id=>{const sec=SEC[id];if(!sec)return;
 h+=`<div class="cs"><h3 style="cursor:pointer" onclick="goSection(${id})">§${id} ${sec.title} →</h3>`;
 VENDOR_FILES[id].forEach(vf=>{h+=`<div style="margin-bottom:4px"><a href="vendor_files/${vf.f}" target="_blank" style="color:var(--txt);font-size:.74rem;text-decoration:none">🔀 ${vf.label}</a>
+<button class="tts-btn" style="padding:1px 6px;font-size:.54rem;margin-left:4px;vertical-align:middle" onclick="ttsOpenPdf('vendor_files/${vf.f}','${vf.label.replace(/'/g,"\\'")}')" title="Read this PDF aloud">🔊</button>
 <span style="margin-left:6px">${vf.vendors.map(v=>`<span style="font-size:.6rem;background:#1a0f2e;color:#c4b5fd;border:1px solid #4c1d95;padding:1px 5px;border-radius:3px;margin-right:3px">${v}</span>`).join('')}</span></div>`;});
 h+=`</div>`;});
 h+=`</div>`;
@@ -3430,24 +3871,48 @@ h+=`<div class="cs"><h3>🧪 Free Ways to Get Hands-On</h3>`;
 XV_LABS.forEach(l=>{h+=`<a class="extra-link" href="${l.u}" target="_blank">${l.n} →</a>`;});
 h+=`</div>`;
 h+=`<div class="cs" style="border-color:#4c1d95"><h3 style="color:#c4b5fd">🔀 Cisco ↔ Everything — Command Translator</h3>`;
-h+=`<p style="font-size:.64rem;color:var(--mut);margin-bottom:6px">${XV_ROWS} everyday tasks. Pick a vendor, filter by task or command. Same job, different dialect.</p>`;
-h+=`<div style="margin-bottom:6px">`;
-XV_VENDORS.forEach(v=>{h+=`<span class="region-btn ${xvVendor===v.id?'active':''}" onclick="setXV('${v.id}')">${v.n}</span>`;});
+h+=`<p style="font-size:.64rem;color:var(--mut);margin-bottom:8px">${XV_ROWS} everyday tasks across ${XV_VENDORS.length} vendors, grouped by function. Same job, different dialect — scan a row left to right.</p>`;
+
+// ---- LEGEND / KEY ----
+h+=`<div class="xv-legend">
+<div class="xv-legend-title">🔑 Key</div>
+<div class="xv-legend-grid">
+<div class="xv-legend-vendors">`;
+XV_VENDORS.forEach(v=>{h+=`<div class="xv-legend-row" style="opacity:${xvCols.has(v.id)?1:.4}"><span class="xv-swatch" style="background:${v.color}"></span><span class="xv-legend-name" style="color:${v.color}">${v.n}</span><span class="xv-legend-note">${v.note}</span></div>`;});
+h+=`</div>
+<div class="xv-legend-symbols">
+<div><span class="xv-sym">—</span> no native/direct equivalent — a workaround or architectural difference is explained inline instead of literal syntax</div>
+<div><span class="xv-sym">⏎</span> multi-line cell = commands typed in that order, top to bottom, in the CLI</div>
+<div><span class="xv-sym">·</span> a leading space before a line = a sub-command entered after the parent context (e.g. after <code>interface g0/0</code>)</div>
+<div><span class="xv-sym">✳</span> apply model differs by vendor: Cisco/Arista/Aruba/MikroTik apply immediately; Junos/PAN-OS require <code>commit</code>; FortiOS saves as you exit each <code>config</code> tree</div>
+</div>
+</div></div>`;
+
+// ---- COLUMN TOGGLES ----
+h+=`<div style="margin:8px 0 6px">
+<span style="font-size:.6rem;color:var(--mut);margin-right:6px">Columns:</span>
+<span class="region-btn" onclick='setXVPreset(${JSON.stringify(XV_VENDORS.map(v=>v.id))})'>All ${XV_VENDORS.length}</span>
+<span class="region-btn" onclick="setXVPreset(['cisco','arista','junos'])">Core 3</span>
+<span class="region-btn" onclick="setXVPreset(['cisco','forti','paloalto'])">Firewalls</span>`;
+XV_VENDORS.forEach(v=>{h+=`<span class="region-btn ${xvCols.has(v.id)?'active':''}" style="border-color:${xvCols.has(v.id)?v.color:'var(--bor)'}" onclick="toggleXVCol('${v.id}')">${v.short}</span>`;});
 h+=`</div>`;
-const xvSel=XV_VENDORS.find(v=>v.id===xvVendor);
-h+=`<div class="rb" style="margin-bottom:7px"><strong>${xvSel.n}:</strong> ${xvSel.note}</div>`;
+
 h+=`<input class="gs" id="xvi" placeholder="Filter: vlan, ospf, save, trunk, ssh..." value="${xvSrch.replace(/"/g,'&quot;')}" oninput="fXV(this.value)">`;
 const xq=xvSrch.toLowerCase();
+const xvShown=XV_VENDORS.filter(v=>xvCols.has(v.id));
 let xvAny=false;
 XVEND.forEach(cat=>{
-const xrows=cat.rows.filter(r=>!xq||r.t.toLowerCase().includes(xq)||r.cisco.toLowerCase().includes(xq)||(r[xvVendor]||'').toLowerCase().includes(xq));
+const xrows=cat.rows.filter(r=>!xq||r.t.toLowerCase().includes(xq)||xvShown.some(v=>(r[v.id]||'').toLowerCase().includes(xq)));
 if(!xrows.length)return;xvAny=true;
 h+=`<div class="gl2">${cat.cat}</div>`;
-xrows.forEach(r=>{h+=`<div class="ls"><div class="sn2">${r.t}</div>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:5px;margin-top:3px">
-<div><span style="font-size:.54rem;font-family:'JetBrains Mono',monospace;color:var(--ac);font-weight:700">CISCO IOS</span><span class="sc">${r.cisco}</span></div>
-<div><span style="font-size:.54rem;font-family:'JetBrains Mono',monospace;color:#c4b5fd;font-weight:700">${xvSel.n.toUpperCase()}</span><span class="sc" style="color:#c4b5fd">${r[xvVendor]}</span></div>
-</div></div>`;});
+h+=`<div style="overflow-x:auto"><table class="xv-table"><thead><tr><th class="xv-task-h">Task</th>`;
+xvShown.forEach(v=>{h+=`<th style="color:${v.color}">${v.short}</th>`;});
+h+=`</tr></thead><tbody>`;
+xrows.forEach(r=>{h+=`<tr><td class="xv-task">${r.t}</td>`;
+xvShown.forEach(v=>{const val=r[v.id]||'—';const isNa=val.trim().startsWith('—');
+h+=`<td class="xv-cmd" style="${isNa?'color:var(--mut);font-style:italic':''}">${val}</td>`;});
+h+=`</tr>`;});
+h+=`</tbody></table></div>`;
 });
 if(!xvAny)h+=`<p style="color:var(--mut);text-align:center;padding:14px">No matching tasks — try a shorter word.</p>`;
 h+=`</div>`;
@@ -3518,12 +3983,41 @@ h+=`</div></div>`;
 });
 
 // Extra resources
-h+=`<div class="cs" style="margin-top:12px"><h3>🌐 More Job Resources</h3>`;
+h+=`<div class="cs" style="margin-top:12px"><h3>🌐 More Job Resources — Boards, Staffing Agencies, Communities</h3>`;
+h+=`<p style="font-size:.64rem;color:var(--mut);margin-bottom:6px">Beyond the big 6 job sites above: staffing agencies that actually place CCNA holders, free NYC job-training-to-placement nonprofits, and the forums/subreddits where people post real "here's what worked" threads.</p>`;
 h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:4px">`;
 JOB_EXTRA.forEach(ex=>{
 h+=`<a href="${ex.url}" target="_blank" class="extra-link"><strong>${ex.name}</strong> <span style="color:var(--mut);font-size:.62rem">— ${ex.note}</span></a>`;
 });
 h+=`</div></div>`;
+
+// NYC-local communities
+h+=`<div class="cs" style="margin-top:8px"><h3>🗽 NYC-Local: Where People Actually Network Into Roles</h3>`;
+h+=`<p style="font-size:.64rem;color:var(--mut);margin-bottom:6px">Job boards get you into the applicant pile. These get you a conversation before the posting even exists — meetups, user groups, and local professional orgs.</p>`;
+JOB_NYC_LOCAL.forEach(n=>h+=`<div class="vc"><div class="vt"><a href="${n.url}" target="_blank" style="color:var(--gold);text-decoration:none">${n.name} ↗</a></div><div class="vd">${n.note}</div></div>`);
+h+=`</div>`;
+
+// Resume tactics
+h+=`<div class="cs" style="margin-top:8px;border-color:#3d3500"><h3 style="color:var(--gold)">📝 Resume Tactics That Actually Get Past ATS + a Human Skim</h3>`;
+JOB_RESUME_TIPS.forEach(r=>h+=`<div style="margin-bottom:7px"><div style="font-size:.74rem;font-weight:700;color:var(--ac)">${r.t}</div><div style="font-size:.68rem;color:#cbd5e1;line-height:1.4">${r.d}</div></div>`);
+h+=`</div>`;
+
+// LinkedIn tactics
+h+=`<div class="cs" style="margin-top:8px"><h3>🔗 LinkedIn Tactics That Actually Get Responses</h3>`;
+JOB_LINKEDIN_TIPS.forEach(r=>h+=`<div style="margin-bottom:7px"><div style="font-size:.74rem;font-weight:700;color:var(--ac)">${r.t}</div><div style="font-size:.68rem;color:#cbd5e1;line-height:1.4">${r.d}</div></div>`);
+h+=`</div>`;
+
+// Application tracking workflow
+h+=`<div class="cs" style="margin-top:8px;border-color:#4c1d95"><h3 style="color:#c4b5fd">🗂️ Application Tracking Workflow</h3>`;
+h+=`<p style="font-size:.66rem;color:var(--mut);margin-bottom:6px">Copy these column headers straight into a Google Sheet — this is the whole system. One row per application, no more guessing where things stand.</p>`;
+h+=`<div style="overflow-x:auto;margin-bottom:8px"><table style="border-collapse:collapse;width:100%;min-width:640px"><thead><tr>`;
+JOB_TRACKER_COLS.forEach(c=>h+=`<th style="text-align:left;font-size:.6rem;font-family:'JetBrains Mono',monospace;color:var(--ac);padding:4px 8px;border-bottom:2px solid var(--bor);white-space:nowrap">${c}</th>`);
+h+=`</tr></thead><tbody><tr>`;
+["Acme Networks","Junior Network Engineer","2026-08-08","LinkedIn (direct msg)","Jane D., Hiring Mgr","Screening Call","2026-08-15","Mentioned my OSPF+VLAN home lab project"].forEach(v=>h+=`<td style="font-size:.62rem;color:#cbd5e1;padding:4px 8px;border-bottom:1px solid var(--bor);white-space:nowrap">${v}</td>`);
+h+=`</tr></tbody></table></div>`;
+h+=`<ol style="margin:0;padding-left:18px">`;
+JOB_TRACKER_STEPS.forEach(s=>h+=`<li style="font-size:.7rem;color:#cbd5e1;margin-bottom:4px;line-height:1.4">${s}</li>`);
+h+=`</ol></div>`;
 
 // Common Tasks
 h+=`<div class="cs" style="margin-top:12px;border-color:#1e3a5f"><h3 style="color:#93c5fd">📋 Common CCNA-Level Job Tasks</h3>`;
@@ -3546,18 +4040,15 @@ h+=`</div>`;});
 h+=`</div>`;
 
 // Tips
-h+=`<div class="cs" style="margin-top:8px"><h3>💡 Job Search Tips</h3><ul>`;
+h+=`<div class="cs" style="margin-top:8px"><h3>💡 A Few More Things Worth Knowing</h3><ul>`;
 [
-"Set up alerts on LinkedIn + Indeed for 'CCNA' + 'network engineer' in your target region",
-"Apply to 5-10 jobs per day minimum. Volume matters early on",
-"Customize your resume for each role — match keywords from the job posting",
-"On LinkedIn: connect with hiring managers + NOC leads directly with a short note",
-"For NYC: Article 23-A requires employers to consider your whole profile, not just background",
-"Massachusetts has the strongest fair chance protections — worth considering for remote or relocation",
-"Contract/MSP roles (Robert Half, TEKsystems) are easier to land first — they convert to permanent",
-"Join r/ccna and r/ITCareerQuestions on Reddit — people post openings and share what worked",
-"Your Study Hub capstone projects ARE your portfolio — mention them in interviews",
-"Many NOC roles are 24/7 shifts — being flexible on schedule makes you more hirable"
+"For NYC: Article 23-A requires employers to consider your whole profile, not just background — know your rights if this applies to you",
+"Massachusetts has the strongest fair-chance protections of the regions above — worth considering for remote roles or relocation",
+"Contract/MSP roles (Robert Half, TEKsystems, Motion Recruitment, Apex) are usually the FASTEST way to a first offer — many convert to permanent after 3-6 months, and hiring bars are lower for contract-to-hire",
+"Per Scholas and NPower are free, NYC-based, and built specifically around job placement, not just training — apply to their current cohorts even if you already have CCNA, since the placement pipeline itself is the value",
+"Your Study Hub capstone projects and home lab ARE your portfolio when you have no professional experience — describe them in interviews exactly like real work (see the Job Prep Anki deck's scenario cards)",
+"Many NOC and data-center roles are 24/7 shift-based — explicitly stating you're open to nights/weekends is one of the single fastest ways to get a callback as a first-time candidate",
+"Set a weekly review habit: look at your application tracker, see what's actually producing callbacks, and adjust — don't just keep repeating whatever isn't working"
 ].forEach(t=>h+=`<li style="font-size:.7rem">${t}</li>`);
 h+=`</ul></div>`;
 
@@ -3592,6 +4083,7 @@ function resetQuiz(){qAns={};qSub=false;render();window.scrollTo(0,0);}
 function loadChap(f){curChap=f;render();}
 function toggleIV(el){el.querySelector('.arrow').classList.toggle('open');el.nextElementSibling.classList.toggle('open');}
 
+ttsInit();
 render();
 </script>
 </body>
